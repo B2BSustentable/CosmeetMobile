@@ -28,7 +28,6 @@ class MainActivity : ComponentActivity() {
                 composable("splash") {
                     SplashScreen(navController = navController)
                 }
-                // Adicione outras rotas conforme necessário
             }
         }
     }

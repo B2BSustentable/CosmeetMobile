@@ -36,7 +36,7 @@ fun SplashScreen(navController: NavHostController) {
         )
     ).value
 
-    Surface(color = Color(0xFF432D67)) { // Cor de fundo definida como 432D67
+    Surface(color = Color(0xFF432D67)) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
