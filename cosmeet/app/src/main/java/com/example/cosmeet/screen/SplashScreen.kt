@@ -4,9 +4,11 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.TweenSpec
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -42,32 +44,46 @@ fun SplashScreen(navController: NavHostController) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
-            Text(
-                text = "Cosmeet",
-                style = MaterialTheme.typography.headlineLarge,
-                color = Color.White,
-                modifier = Modifier.alpha(animationProgress)
-            )
-            Spacer(modifier = Modifier.height(32.dp))
-
-            Text(
-                text = "Juntos pela cosmética",
-                style = MaterialTheme.typography.bodyMedium,
-                color = Color.White,
-                modifier = Modifier
-                    .alpha(animationProgress)
-                    .padding(bottom = 10.dp)
-            )
-
-            Text(
-                text = "Unidos pela conexão",
-                style = MaterialTheme.typography.bodyMedium,
-                color = Color.White,
-                modifier = Modifier
-                    .alpha(animationProgress)
-            )
-
+            Box(
+                modifier = Modifier.weight(1f),
+                contentAlignment = Alignment.Center
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = "Cosmeet",
+                        style = MaterialTheme.typography.headlineLarge,
+                        color = Color.White,
+                        modifier = Modifier.alpha(animationProgress)
+                    )
+                    Spacer(modifier = Modifier.height(32.dp))
+                    Text(
+                        text = "Juntos pela cosmética",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = Color.White,
+                        modifier = Modifier
+                            .alpha(animationProgress)
+                            .padding(bottom = 10.dp)
+                    )
+                    Text(
+                        text = "Unidos pela conexão",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = Color.White,
+                        modifier = Modifier.alpha(animationProgress)
+                    )
+                }
+            }
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.BottomCenter
+            ) {
+                Text(
+                    text = "Versão 1.0.0",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = Color.White
+                )
+            }
             LaunchedEffect(key1 = animationProgress) {
                 if (animationProgress == 1f) {
                     navController.navigate("login")
@@ -76,6 +92,7 @@ fun SplashScreen(navController: NavHostController) {
         }
     }
 }
+
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun GreetingPreview() {
