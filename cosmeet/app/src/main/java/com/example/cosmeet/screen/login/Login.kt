@@ -14,7 +14,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.cosmeet.ui.theme.CosmeetTheme
 
 @Composable
 fun LoginScreen() {
@@ -147,5 +149,13 @@ fun SecondStepLoginScreen() {
             style = MaterialTheme.typography.bodySmall,
             modifier = Modifier.clickable { /* TODO: Reenviar o código */ }
         )
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun GreetingPreview() {
+    CosmeetTheme {
+        LoginScreen()
     }
 }

@@ -16,7 +16,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.cosmeet.screen.login.LoginScreen
+import com.example.cosmeet.ui.theme.CosmeetTheme
 
 @Composable
 fun CadastroScreen() {
@@ -100,5 +103,13 @@ fun CadastroScreen() {
             style = MaterialTheme.typography.bodyMedium ,
             modifier = Modifier.clickable { /* TODO: Navegar para tela de login */ }
         )
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun GreetingPreview() {
+    CosmeetTheme {
+        CadastroScreen()
     }
 }
