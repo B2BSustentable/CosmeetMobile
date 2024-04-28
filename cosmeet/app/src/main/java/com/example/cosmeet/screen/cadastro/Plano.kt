@@ -145,6 +145,10 @@ fun PlanoSelecaoScreen() {
             Divider(modifier = Modifier.fillMaxWidth())
             Spacer(modifier = Modifier.height(30.dp))
 
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
             Text(
                 text = "VALOR:",
                 style = MaterialTheme.typography.bodyLarge,
@@ -156,24 +160,35 @@ fun PlanoSelecaoScreen() {
                 text = "R$ 20,00",
                 style = MaterialTheme.typography.bodyLarge,
                 fontWeight = FontWeight.Bold
-            )
-
+            )}
+            Divider(modifier = Modifier.fillMaxWidth())
             Spacer(modifier = Modifier.height(30.dp))
 
-            Text(
-                text = "Utilize o quanto quiser.",
-                style = MaterialTheme.typography.bodySmall
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
 
             Column(
                 modifier = Modifier.fillMaxWidth(),
             ) {
+
                 Row {
                     Icon(
                         imageVector = Icons.Filled.Check,
-                        contentDescription = "Recomendações especiais"
+                        contentDescription = "Utilize o quanto quiser",
+                        modifier = Modifier.height(20.dp)
+
+                    )
+
+                    Spacer(modifier = Modifier.width(4.dp))
+
+                    Text(
+                        text = "Utilize o quanto quiser.",
+                        style = MaterialTheme.typography.bodySmall,
+                    )
+                }
+                Row {
+                    Icon(
+                        imageVector = Icons.Filled.Check,
+                        contentDescription = "Recomendações especiais",
+                        modifier = Modifier.height(20.dp)
                     )
 
                     Spacer(modifier = Modifier.width(4.dp))
@@ -187,14 +202,16 @@ fun PlanoSelecaoScreen() {
                 Row {
                     Icon(
                         imageVector = Icons.Filled.Check,
-                        contentDescription = "Altere ou cancele seu plano"
+                        contentDescription = "Altere ou cancele seu plano",
+                        modifier = Modifier.height(20.dp)
+
                     )
 
                     Spacer(modifier = Modifier.width(4.dp))
 
                     Text(
                         text = "Altere ou cancele seu plano quando quiser.",
-                        style = MaterialTheme.typography.bodySmall
+                        style = MaterialTheme.typography.bodySmall,
                     )
                 }
             }
