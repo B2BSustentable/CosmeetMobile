@@ -166,7 +166,7 @@ fun SecondStepLoginScreen() {
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun GreetingPreview() {
+fun PreviewPlano() {
     CosmeetTheme {
         LoginScreen()
     }
