@@ -48,6 +48,7 @@ fun CadastroScreen() {
         Text(
             text = "Crie Sua Conta",
             style = MaterialTheme.typography.headlineMedium,
+            fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 16.dp)
         )
 

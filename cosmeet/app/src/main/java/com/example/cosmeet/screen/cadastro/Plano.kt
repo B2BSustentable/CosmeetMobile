@@ -40,6 +40,7 @@ fun PlanoSelecaoScreen() {
         Text(
             text = "Escolha Seu Plano",
             style = MaterialTheme.typography.headlineMedium,
+            fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
@@ -79,6 +80,9 @@ fun PlanoSelecaoScreen() {
                     fontWeight = FontWeight.Bold
                 )
             }
+            Spacer(modifier = Modifier.height(5.dp))
+            Divider(modifier = Modifier.fillMaxWidth())
+
             Spacer(modifier = Modifier.height(30.dp))
 
 
