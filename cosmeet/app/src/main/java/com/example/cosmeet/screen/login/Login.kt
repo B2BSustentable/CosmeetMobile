@@ -121,6 +121,22 @@ fun SecondStepLoginScreen() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Row(modifier = Modifier.width(250.dp), horizontalArrangement = Arrangement.SpaceAround, verticalAlignment = Alignment.CenterVertically) {
+            Image(painter = painterResource(id = R.mipmap.logo), contentDescription = "logo", modifier = Modifier.size(80.dp))
+            Text(
+                text = buildAnnotatedString {
+                    withStyle(
+                        style = SpanStyle(
+                            fontWeight = FontWeight.Medium,
+                            color = Color(0xFF432D67),
+                            fontSize = 30.sp
+                        )
+                    ) {
+                        append("COSMEET")
+                    }
+                }
+            )
+        }
         Text(
             text = "Verificação em duas etapas",
             style = MaterialTheme.typography.labelLarge,
