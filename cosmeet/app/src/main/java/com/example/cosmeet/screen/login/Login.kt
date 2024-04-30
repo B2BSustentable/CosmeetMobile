@@ -33,157 +33,173 @@ import com.example.cosmeet.R
 fun LoginScreen() {
     val isSecondStepVisible = remember { mutableStateOf(false) }
 
-@Composable
-fun FirstStepLoginScreen(onLoginClick: () -> Unit) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Row(modifier = Modifier.width(250.dp), horizontalArrangement = Arrangement.SpaceAround, verticalAlignment = Alignment.CenterVertically) {
-            Image(painter = painterResource(id = R.mipmap.logo), contentDescription = "logo", modifier = Modifier.size(80.dp))
-            Text(
-                text = buildAnnotatedString {
-                    withStyle(
-                        style = SpanStyle(
-                            fontWeight = FontWeight.Medium,
-                            color = Color(0xFF432D67),
-                            fontSize = 30.sp
-                        )
-                    ) {
-                        append("COSMEET")
+    @Composable
+    fun FirstStepLoginScreen(onLoginClick: () -> Unit) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Row(
+                modifier = Modifier.width(250.dp),
+                horizontalArrangement = Arrangement.SpaceAround,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = painterResource(id = R.mipmap.logo),
+                    contentDescription = "logo",
+                    modifier = Modifier.size(80.dp)
+                )
+                Text(
+                    text = buildAnnotatedString {
+                        withStyle(
+                            style = SpanStyle(
+                                fontWeight = FontWeight.Medium,
+                                color = Color(0xFF432D67),
+                                fontSize = 30.sp
+                            )
+                        ) {
+                            append("COSMEET")
+                        }
                     }
-                }
+                )
+
+            }
+            Spacer(modifier = Modifier.height(30.dp))
+            Text(
+                text = "Bem-vindo(a) ao Cosmeet!",
+                style = MaterialTheme.typography.labelLarge,
+                modifier = Modifier.padding(bottom = 16.dp)
             )
 
-        }
-        Spacer(modifier = Modifier.height(30.dp))
-        Text(
-            text = "Bem-vindo(a) ao Cosmeet!",
-            style = MaterialTheme.typography.labelLarge,
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
+            Text(
+                text = "Entre com seu e-mail e senha para acessar sua conta.",
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(bottom = 24.dp)
+            )
 
-        Text(
-            text = "Entre com seu e-mail e senha para acessar sua conta.",
-            style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.padding(bottom = 24.dp)
-        )
+            OutlinedTextField(
+                value = "E-mail",
+                onValueChange = {},
+                label = { Text("E-mail") },
+                modifier = Modifier.fillMaxWidth()
+            )
 
-        OutlinedTextField(
-            value = "E-mail",
-            onValueChange = {},
-            label = { Text("E-mail") },
-            modifier = Modifier.fillMaxWidth()
-        )
+            Spacer(modifier = Modifier.height(8.dp))
 
-        Spacer(modifier = Modifier.height(8.dp))
+            OutlinedTextField(
+                value = "Senha",
+                onValueChange = {},
+                label = { Text("Senha") },
+                visualTransformation = PasswordVisualTransformation(),
+                modifier = Modifier.fillMaxWidth()
+            )
 
-        OutlinedTextField(
-            value = "Senha",
-            onValueChange = {},
-            label = { Text("Senha") },
-            visualTransformation = PasswordVisualTransformation(),
-            modifier = Modifier.fillMaxWidth()
-        )
+            Spacer(modifier = Modifier.height(24.dp))
 
-        Spacer(modifier = Modifier.height(24.dp))
-
-        Button(
-            onClick = onLoginClick,
-            modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(Color(0xFF432D67))
-        ) {
-            Text("Entrar")
-        }
-        Spacer(modifier = Modifier.height(20.dp))
-        Text(
-            text = buildAnnotatedString {
-                append("Não tem uma conta? ")
-                withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-                    append("Crie uma agora!")
-                }
-            },
-            style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.clickable { /* TODO: Navegar para tela de cadastro */ }
-        )
-    }
-}
-
-@Composable
-fun SecondStepLoginScreen() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Row(modifier = Modifier.width(250.dp), horizontalArrangement = Arrangement.SpaceAround, verticalAlignment = Alignment.CenterVertically) {
-            Image(painter = painterResource(id = R.mipmap.logo), contentDescription = "logo", modifier = Modifier.size(80.dp))
+            Button(
+                onClick = onLoginClick,
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(Color(0xFF432D67))
+            ) {
+                Text("Entrar")
+            }
+            Spacer(modifier = Modifier.height(20.dp))
             Text(
                 text = buildAnnotatedString {
-                    withStyle(
-                        style = SpanStyle(
-                            fontWeight = FontWeight.Medium,
-                            color = Color(0xFF432D67),
-                            fontSize = 30.sp
-                        )
-                    ) {
-                        append("COSMEET")
+                    append("Não tem uma conta? ")
+                    withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                        append("Crie uma agora!")
                     }
-                }
+                },
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.clickable { /* TODO: Navegar para tela de cadastro */ }
             )
         }
-        Text(
-            text = "Verificação em duas etapas",
-            style = MaterialTheme.typography.labelLarge,
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
-
-        Text(
-            text = "Um código de segurança foi enviado para o seu número de telefone.",
-            style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.padding(bottom = 24.dp)
-        )
-
-        OutlinedTextField(
-            value = "",
-            onValueChange = {},
-            label = { Text("Código de segurança") },
-            modifier = Modifier.fillMaxWidth(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-        )
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        Button(
-            onClick = {},
-            modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(Color(0xFF432D67))
-
-        ) {
-            Text("Validar")
-        }
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Text(
-            text = "Não recebeu o código?",
-            style = MaterialTheme.typography.bodySmall,
-            modifier = Modifier.clickable { /* TODO: Reenviar o código */ }
-        )
-
-        Spacer(modifier = Modifier.height(3.dp))
-        Text(
-            text = "Reenviar o código",
-            style = MaterialTheme.typography.titleSmall,
-            modifier = Modifier.clickable { /* TODO: Reenviar o código */ }
-        )
     }
-}
+
+    @Composable
+    fun SecondStepLoginScreen() {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Row(
+                modifier = Modifier.width(250.dp),
+                horizontalArrangement = Arrangement.SpaceAround,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = painterResource(id = R.mipmap.logo),
+                    contentDescription = "logo",
+                    modifier = Modifier.size(80.dp)
+                )
+                Text(
+                    text = buildAnnotatedString {
+                        withStyle(
+                            style = SpanStyle(
+                                fontWeight = FontWeight.Medium,
+                                color = Color(0xFF432D67),
+                                fontSize = 30.sp
+                            )
+                        ) {
+                            append("COSMEET")
+                        }
+                    }
+                )
+            }
+            Text(
+                text = "Verificação em duas etapas",
+                style = MaterialTheme.typography.labelLarge,
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
+
+            Text(
+                text = "Um código de segurança foi enviado para o seu número de telefone.",
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(bottom = 24.dp)
+            )
+
+            OutlinedTextField(
+                value = "",
+                onValueChange = {},
+                label = { Text("Código de segurança") },
+                modifier = Modifier.fillMaxWidth(),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+            )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Button(
+                onClick = {},
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(Color(0xFF432D67))
+
+            ) {
+                Text("Validar")
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = "Não recebeu o código?",
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier.clickable { /* TODO: Reenviar o código */ }
+            )
+
+            Spacer(modifier = Modifier.height(3.dp))
+            Text(
+                text = "Reenviar o código",
+                style = MaterialTheme.typography.titleSmall,
+                modifier = Modifier.clickable { /* TODO: Reenviar o código */ }
+            )
+        }
+    }
 
 
     Column(
