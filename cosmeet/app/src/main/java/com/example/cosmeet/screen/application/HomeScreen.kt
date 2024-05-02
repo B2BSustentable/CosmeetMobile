@@ -52,7 +52,7 @@ val mockCompanies = listOf(
     Company(name = "Nivea", description = "Nivea")
 
 
-    )
+)
 
 @Composable
 fun HomeScreen() {
@@ -62,7 +62,6 @@ fun HomeScreen() {
             .padding(start = 16.dp, top = 50.dp, end = 20.dp, bottom = 0.dp),
         horizontalAlignment = Alignment.Start
     ) {
-        // Cabeçalho da tela
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -101,7 +100,6 @@ fun HomeScreen() {
 
         Spacer(modifier = Modifier.height(40.dp))
 
-        // Botões de navegação
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -133,7 +131,6 @@ fun HomeScreen() {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .verticalScroll(rememberScrollState())
             ) {
                 val companiesInColumns = mockCompanies.chunked(2)
                 items(companiesInColumns.size) { index ->
@@ -147,6 +144,7 @@ fun HomeScreen() {
                     Spacer(modifier = Modifier.height(10.dp))
                 }
             }
+
         }
     }
 }
@@ -168,7 +166,7 @@ fun CompanyCard(company: Company) {
 }
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun PreviewPlano() {
+fun PreviewHome() {
     CosmeetTheme {
         HomeScreen()
     }
