@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -42,6 +44,13 @@ val mockCompanies = listOf(
     Company(name = "Nivea", description = "Nivea"),
     Company(name = "Nivea", description = "Nivea"),
     Company(name = "Nivea", description = "Nivea"),
+    Company(name = "Nivea", description = "Nivea"),
+    Company(name = "Nivea", description = "Nivea"),
+    Company(name = "Nivea", description = "Nivea"),
+    Company(name = "Nivea", description = "Nivea"),
+    Company(name = "Nivea", description = "Nivea"),
+    Company(name = "Nivea", description = "Nivea")
+
 
     )
 
@@ -53,6 +62,7 @@ fun HomeScreen() {
             .padding(start = 16.dp, top = 50.dp, end = 20.dp, bottom = 0.dp),
         horizontalAlignment = Alignment.Start
     ) {
+        // Cabeçalho da tela
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -88,7 +98,10 @@ fun HomeScreen() {
                 modifier = Modifier.size(40.dp)
             )
         }
+
         Spacer(modifier = Modifier.height(40.dp))
+
+        // Botões de navegação
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -117,20 +130,27 @@ fun HomeScreen() {
             }
             Spacer(modifier = Modifier.height(50.dp))
 
-            Column(modifier = Modifier.fillMaxWidth()) {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(rememberScrollState())
+            ) {
                 val companiesInColumns = mockCompanies.chunked(2)
-                companiesInColumns.forEach { columnCompanies ->
+                items(companiesInColumns.size) { index ->
+                    val columnCompanies = companiesInColumns[index]
                     Row(Modifier.fillMaxWidth()) {
                         columnCompanies.forEach { company ->
                             CompanyCard(company)
+                            Spacer(modifier = Modifier.width(16.dp))
                         }
                     }
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
                 }
             }
         }
     }
 }
+
 
 @Composable
 fun CompanyCard(company: Company) {
