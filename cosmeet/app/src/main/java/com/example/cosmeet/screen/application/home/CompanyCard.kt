@@ -81,7 +81,7 @@ fun CompanyScreen() {
 
 
             Text(
-                text = "Contatos", style = MaterialTheme.typography.bodyMedium
+                text = "Contatos", style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
             )
 
             Row(
@@ -89,7 +89,7 @@ fun CompanyScreen() {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Spacer(modifier = Modifier.width(8.dp))
-                Text(text = "tel: 1197298-1912")
+                Text(text = "telefone: 1197298-1912")
             }
 
             Row(
@@ -103,7 +103,7 @@ fun CompanyScreen() {
             Divider(modifier = Modifier.padding(vertical = 16.dp))
 
             Text(
-                text = "Sobre", style = MaterialTheme.typography.bodyMedium
+                text = "Sobre", style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
             )
 
             Text(
