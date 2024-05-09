@@ -1,18 +1,19 @@
-package com.example.cosmeet.screen.application.home
+package com.example.cosmeet.screen.application.perfil
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Card
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,30 +30,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cosmeet.R
+import com.example.cosmeet.screen.application.home.HomeScreen
 import com.example.cosmeet.ui.theme.CosmeetTheme
-data class Company(val name: String, val description: String)
-
-val mockCompanies = listOf(
-    Company(name = "Nivea", description = "Nivea"),
-    Company(name = "Nivea", description = "Nivea"),
-    Company(name = "Nivea", description = "Nivea"),
-    Company(name = "Nivea", description = "Nivea"),
-    Company(name = "Nivea", description = "Nivea"),
-    Company(name = "Nivea", description = "Nivea"),
-    Company(name = "Nivea", description = "Nivea"),
-    Company(name = "Nivea", description = "Nivea"),
-    Company(name = "Nivea", description = "Nivea"),
-    Company(name = "Nivea", description = "Nivea"),
-    Company(name = "Nivea", description = "Nivea"),
-    Company(name = "Nivea", description = "Nivea"),
-    Company(name = "Nivea", description = "Nivea"),
-    Company(name = "Nivea", description = "Nivea")
-
-
-)
 
 @Composable
-fun HomeScreen() {
+fun PerfilScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -112,58 +94,63 @@ fun HomeScreen() {
                     style = MaterialTheme.typography.bodySmall.copy(
                         fontSize = 16.sp
                     ),
-                    textDecoration = TextDecoration.Underline,
-                    fontWeight = FontWeight.Bold
-                    )
+                )
                 Spacer(modifier = Modifier.weight(1f))
                 Text(
                     text = "Perfil",
                     style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.Bold,
+                    textDecoration = TextDecoration.Underline,
                     fontSize = 16.sp
                 )
             }
             Spacer(modifier = Modifier.height(30.dp))
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Row {
+                    Image(
+                        painter = painterResource(id = R.mipmap.iconteste),
+                        contentDescription = "logo da empresa",
+                        modifier = Modifier.size(60.dp)
+                    )
 
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-            ) {
-                val companiesInColumns = mockCompanies.chunked(2)
-                items(companiesInColumns.size) { index ->
-                    val columnCompanies = companiesInColumns[index]
-                    Row(Modifier.fillMaxWidth()) {
-                        columnCompanies.forEach { company ->
-                            CompanyCard(company)
-                            Spacer(modifier = Modifier.width(16.dp))
+                    Spacer(modifier = Modifier.width(15.dp))
+
+                    Column {
+                        Text(text = "NIVEA LTDA")
+                        Text(text = "Distribuidor")
+                        Text(text = "Guarulhos, São Paulo")
                         }
+                }
+
+                Spacer(modifier = Modifier.height(20.dp))
+                Column {
+                    Text(text =
+                            "Há dois anos, a NIVEA continuou sua longa jornada de cuidado e beleza, trazendo inovação e qualidade incomparáveis para o mundo da cosmética. Hoje, celebramos com orgulho nosso aniversário de dois anos como uma marca que conquistou a confiança de milhões de pessoas em todo o mundo.\n" +
+                            "Nossa Missão de Cuidado e Beleza\n" +
+                            "Desde o início, a NIVEA se comprometeu a promover a beleza autêntica e o bem-estar de nossos clientes. Estamos empenhados em cuidar de sua pele e fornecer produtos de alta qualidade que a mantenham saudável e radiante [...]", fontSize = 12.sp)
+                }
+                Spacer(modifier = Modifier.height(25.dp))
+                Button(onClick = { /*TODO*/ },  colors = ButtonDefaults.buttonColors(Color(0xFF432D67))
+                ) {
+                    Text(text = "Editar Perfil")
+                }
+                Spacer(modifier = Modifier.height(50.dp))
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+                    Text(text = "PREMIUM", fontWeight = FontWeight.Bold)
+                    Button(onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(Color(0xFF432D67))
+                    ) {
+                        Text(text = "Trocar Plano")
                     }
-                    Spacer(modifier = Modifier.height(10.dp))
                 }
             }
-
         }
     }
 }
 
-
-@Composable
-fun CompanyCard(company: Company) {
-    Card {
-        Column(
-            modifier = Modifier
-                .padding(20.dp)
-                .width(120.dp)
-        ) {
-            Text(company.name, style = MaterialTheme.typography.bodyMedium)
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(company.description)
-        }
-    }
-}
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun PreviewHome() {
+fun PreviewPerfil() {
     CosmeetTheme {
-        HomeScreen()
+        PerfilScreen()
     }
 }
