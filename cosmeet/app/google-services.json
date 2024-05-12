@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1015758566399",
+    "project_id": "cosmeet-aa479",
+    "storage_bucket": "cosmeet-aa479.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1015758566399:android:634de4dc629700ba44adca",
+        "android_client_info": {
+          "package_name": "com.example.cosmeet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDD8kRn8LVsufWr-Ff09pPqpinkZQhbKcs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
