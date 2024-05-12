@@ -1,5 +1,6 @@
 package com.example.cosmeet.screen.cadastro
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,9 +28,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.cosmeet.ui.theme.CosmeetTheme
 
+import androidx.compose.runtime.*
+
+enum class PlanType {
+    BASICO, COMMON, PREMIUM
+}
 
 @Composable
 fun PlanoSelecaoScreen() {
+    val selectedPlan = remember { mutableStateOf(PlanType.BASICO) }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -50,187 +58,206 @@ fun PlanoSelecaoScreen() {
             modifier = Modifier.padding(bottom = 24.dp)
         )
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(10.dp),
-            horizontalAlignment = Alignment.Start
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceAround
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceAround
-            ) {
-                Text(
-                    text = "Básico",
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        fontWeight = FontWeight.Bold,
-                        textDecoration = TextDecoration.Underline
-                    ),
-                )
-                Spacer(modifier = Modifier.weight(1f))
-                Text(
-                    text = "Common",
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.Bold
-                )
-                Spacer(modifier = Modifier.weight(1f))
-                Text(
-                    text = "Premium",
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-            Spacer(modifier = Modifier.height(5.dp))
-            Divider(modifier = Modifier.fillMaxWidth())
-
-            Spacer(modifier = Modifier.height(30.dp))
-
-
-            Spacer(modifier = Modifier.height(8.dp))
-
             Text(
-                text = "O plano ideal para quem está começando agora na Cosmeet",
-                style = MaterialTheme.typography.bodyLarge
+                text = "Básico",
+                style = MaterialTheme.typography.bodySmall.copy(
+                    fontWeight = FontWeight.Bold,
+                    textDecoration = if (selectedPlan.value == PlanType.BASICO) TextDecoration.Underline else TextDecoration.None
+                ),
+                modifier = Modifier.clickable { selectedPlan.value = PlanType.BASICO }
             )
-
-            Spacer(modifier = Modifier.height(40.dp))
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = "Quantidade de categorias:",
-                    style = MaterialTheme.typography.bodyMedium
-                )
-
-                Text(
-                    text = "2",
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
-            Divider(modifier = Modifier.fillMaxWidth())
-
-            Spacer(modifier = Modifier.height(15.dp))
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = "Consulta Ilimitadas:",
-                    style = MaterialTheme.typography.bodyMedium
-                )
-
-                Icon(
-                    imageVector = Icons.Filled.Check,
-                    contentDescription = "Consulta ilimitadas"
-                )
-            }
-            Divider(modifier = Modifier.fillMaxWidth())
-
-            Spacer(modifier = Modifier.height(13.dp))
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = "Adicionar aos favoritos:",
-                    style = MaterialTheme.typography.bodyMedium
-                )
-
-                Icon(
-                    imageVector = Icons.Filled.Check,
-                    contentDescription = "Adicionar aos favoritos"
-                )
-            }
-
-            Divider(modifier = Modifier.fillMaxWidth())
-            Spacer(modifier = Modifier.height(30.dp))
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
+            Spacer(modifier = Modifier.weight(1f))
             Text(
-                text = "VALOR:",
-                style = MaterialTheme.typography.bodyLarge,
-                fontWeight = FontWeight.Bold
+                text = "Common",
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    fontWeight = FontWeight.Bold,
+                    textDecoration = if (selectedPlan.value == PlanType.COMMON) TextDecoration.Underline else TextDecoration.None
+                ),
+                modifier = Modifier.clickable { selectedPlan.value = PlanType.COMMON }
             )
-
-
+            Spacer(modifier = Modifier.weight(1f))
             Text(
-                text = "R$ 20,00",
-                style = MaterialTheme.typography.bodyLarge,
-                fontWeight = FontWeight.Bold
-            )}
-            Divider(modifier = Modifier.fillMaxWidth())
-            Spacer(modifier = Modifier.height(30.dp))
+                text = "Premium",
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    fontWeight = FontWeight.Bold,
+                    textDecoration = if (selectedPlan.value == PlanType.PREMIUM) TextDecoration.Underline else TextDecoration.None
+                ),
+                modifier = Modifier.clickable { selectedPlan.value = PlanType.PREMIUM }
+            )
+        }
 
+        Spacer(modifier = Modifier.height(5.dp))
+        Divider(modifier = Modifier.fillMaxWidth())
 
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-            ) {
+        Spacer(modifier = Modifier.height(30.dp))
+        when (selectedPlan.value) {
+            PlanType.BASICO -> {
+                Text(
+                    text = "O plano ideal para quem está começando agora na Cosmeet",
+                    style = MaterialTheme.typography.bodyLarge
+                )
 
-                Row {
-                    Icon(
-                        imageVector = Icons.Filled.Check,
-                        contentDescription = "Utilize o quanto quiser",
-                        modifier = Modifier.height(20.dp)
+                Spacer(modifier = Modifier.height(40.dp))
 
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = "Quantidade de categorias:",
+                        style = MaterialTheme.typography.bodyMedium
                     )
-
-                    Spacer(modifier = Modifier.width(4.dp))
 
                     Text(
-                        text = "Utilize o quanto quiser.",
-                        style = MaterialTheme.typography.bodySmall,
+                        text = "2",
+                        style = MaterialTheme.typography.bodyMedium
                     )
                 }
-                Row {
+                Divider(modifier = Modifier.fillMaxWidth())
+
+                Spacer(modifier = Modifier.height(15.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = "Consulta Ilimitadas:",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+
                     Icon(
                         imageVector = Icons.Filled.Check,
-                        contentDescription = "Recomendações especiais",
-                        modifier = Modifier.height(20.dp)
-                    )
-
-                    Spacer(modifier = Modifier.width(4.dp))
-
-                    Text(
-                        text = "Recomendações especiais para você.",
-                        style = MaterialTheme.typography.bodySmall
+                        contentDescription = "Consulta ilimitadas"
                     )
                 }
+                Divider(modifier = Modifier.fillMaxWidth())
 
-                Row {
+                Spacer(modifier = Modifier.height(13.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = "Adicionar aos favoritos:",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+
                     Icon(
                         imageVector = Icons.Filled.Check,
-                        contentDescription = "Altere ou cancele seu plano",
-                        modifier = Modifier.height(20.dp)
-
-                    )
-
-                    Spacer(modifier = Modifier.width(4.dp))
-
-                    Text(
-                        text = "Altere ou cancele seu plano quando quiser.",
-                        style = MaterialTheme.typography.bodySmall,
+                        contentDescription = "Adicionar aos favoritos"
                     )
                 }
+
+                Divider(modifier = Modifier.fillMaxWidth())
+                Spacer(modifier = Modifier.height(30.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = "VALOR:",
+                        style = MaterialTheme.typography.bodyLarge,
+                        fontWeight = FontWeight.Bold
+                    )
+
+
+                    Text(
+                        text = "R$ 20,00",
+                        style = MaterialTheme.typography.bodyLarge,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+                Divider(modifier = Modifier.fillMaxWidth())
+                Spacer(modifier = Modifier.height(30.dp))
+
+
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+
+                    Row {
+                        Icon(
+                            imageVector = Icons.Filled.Check,
+                            contentDescription = "Utilize o quanto quiser",
+                            modifier = Modifier.height(20.dp)
+
+                        )
+
+                        Spacer(modifier = Modifier.width(4.dp))
+
+                        Text(
+                            text = "Utilize o quanto quiser.",
+                            style = MaterialTheme.typography.bodySmall,
+                        )
+                    }
+                    Row {
+                        Icon(
+                            imageVector = Icons.Filled.Check,
+                            contentDescription = "Recomendações especiais",
+                            modifier = Modifier.height(20.dp)
+                        )
+
+                        Spacer(modifier = Modifier.width(4.dp))
+
+                        Text(
+                            text = "Recomendações especiais para você.",
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
+
+                    Row {
+                        Icon(
+                            imageVector = Icons.Filled.Check,
+                            contentDescription = "Altere ou cancele seu plano",
+                            modifier = Modifier.height(20.dp)
+
+                        )
+
+                        Spacer(modifier = Modifier.width(4.dp))
+
+                        Text(
+                            text = "Altere ou cancele seu plano quando quiser.",
+                            style = MaterialTheme.typography.bodySmall,
+                        )
+                    }
+                }
+                Spacer(modifier = Modifier.height(70.dp))
+                Button(
+                    onClick = {},
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(Color(0xFF432D67))
+                ) {
+                    Text("Próximo")
+                }
+
             }
-            Spacer(modifier = Modifier.height(70.dp))
-            Button(
-                onClick = {},
-                modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(Color(0xFF432D67))
-            ) {
-                Text("Próximo")
+
+            PlanType.COMMON -> {
+                // Render common plan content
+                // Update content as per your requirement
+                Text(
+                    text = "O plano mais utilizado entre os usuários",
+                    style = MaterialTheme.typography.bodyLarge
+                )
+
+                // Update other content accordingly
+            }
+
+            PlanType.PREMIUM -> {
+                // Render premium plan content
+                // Update as per your requirement
             }
         }
     }
-
 }
+
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
