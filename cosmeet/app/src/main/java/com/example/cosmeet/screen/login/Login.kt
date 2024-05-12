@@ -28,6 +28,8 @@ import com.example.cosmeet.R
 @Composable
 fun LoginScreen(loginViewModel: LoginViewModel) {
     val isSecondStepVisible = remember { mutableStateOf(false) }
+    val email = remember { mutableStateOf("") }
+    val password = remember { mutableStateOf("") }
 
     @Composable
     fun FirstStepLoginScreen(onLoginClick: () -> Unit) {
@@ -77,8 +79,8 @@ fun LoginScreen(loginViewModel: LoginViewModel) {
             )
 
             OutlinedTextField(
-                value = "E-mail",
-                onValueChange = {},
+                value = email.value,
+                onValueChange = { email.value = it },
                 label = { Text("E-mail") },
                 modifier = Modifier.fillMaxWidth()
             )
@@ -86,8 +88,8 @@ fun LoginScreen(loginViewModel: LoginViewModel) {
             Spacer(modifier = Modifier.height(8.dp))
 
             OutlinedTextField(
-                value = "Senha",
-                onValueChange = {},
+                value = password.value,
+                onValueChange = { password.value = it },
                 label = { Text("Senha") },
                 visualTransformation = PasswordVisualTransformation(),
                 modifier = Modifier.fillMaxWidth()
@@ -96,7 +98,7 @@ fun LoginScreen(loginViewModel: LoginViewModel) {
             Spacer(modifier = Modifier.height(24.dp))
 
             Button(
-                onClick = {loginViewModel.makeLogin("jg.matosmota@gmail.com", "123")},
+                onClick = {loginViewModel.makeLogin(email.toString(), password.toString())},
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(Color(0xFF432D67))
             ) {

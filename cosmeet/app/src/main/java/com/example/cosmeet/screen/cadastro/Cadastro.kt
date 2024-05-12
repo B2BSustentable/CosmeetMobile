@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -34,13 +35,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.cosmeet.R
 import com.example.cosmeet.screen.login.LoginScreen
+import com.example.cosmeet.screen.login.LoginViewModel
 import com.example.cosmeet.ui.theme.CosmeetTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 //import com.example.cosmeet.repository.BusinessRepository
 
 @Composable
-fun CadastroScreen() {
+fun CadastroScreen(cadastroViewModel: CadastroViewModel) {
     var scope = rememberCoroutineScope()
     var context = LocalContext.current
 //    var repository = BusinessRepository()
@@ -232,27 +234,6 @@ fun SecondStepRegister() {
         Button(
             onClick = {
 
-                var message = true
-                scope.launch(Dispatchers.IO){
-                          if(razaoSocial == null){
-                              message = false
-                          } else if (razaoSocial != null && CNPJ != null){
-//                            repository.signupBusiness(razaoSocial,email, CNPJ, senha, confirmaSenha)
-                              message = true
-                          }
-                }
-
-                scope.launch(Dispatchers.Main){
-                    if(message){
-                        Toast.makeText(context, "Sucesso ao salvar a tarefa",
-                            Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(context, "A razão social precisa ser preenchida",
-                            Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-
             },
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(Color(0xFF432D67))
@@ -278,10 +259,10 @@ fun SecondStepRegister() {
 }
 
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun GreetingPreview() {
-    CosmeetTheme {
-        SecondStepRegister()
-    }
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun GreetingPreview() {
+//    CosmeetTheme {
+//        CadastroScreen()
+//    }
+//}

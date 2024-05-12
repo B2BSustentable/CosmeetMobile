@@ -23,12 +23,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.cosmeet.R
 import com.example.cosmeet.screen.cadastro.PagamentoScreen
 import com.example.cosmeet.ui.theme.CosmeetTheme
 
 @Composable
-fun StartScreen(){
+fun StartScreen(navController: NavHostController){
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -57,14 +59,20 @@ fun StartScreen(){
 
             Spacer(modifier = Modifier.height(40.dp))
             Button(
-                onClick = {},
+                onClick = {navController.navigate("register")},
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(Color(0xFF432D67))
             ) {
                 Text("Crie sua conta")
             }
             Spacer(modifier = Modifier.height(10.dp))
-            Text(text = "Já possuo uma conta", fontSize = 13.sp)
+            Button(
+                onClick = {navController.navigate("login")},
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(Color.White),
+                ) {
+                Text(text = "Já possuo uma conta", color = Color(0xFF432D67))
+            }
         }
     }
 }
@@ -73,6 +81,8 @@ fun StartScreen(){
 @Composable
 fun PreviewStart() {
     CosmeetTheme {
-        StartScreen()
+        val navController = rememberNavController()
+
+        StartScreen(navController = navController)
     }
 }

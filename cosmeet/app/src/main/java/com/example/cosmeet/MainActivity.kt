@@ -10,11 +10,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.cosmeet.data.repository.cadastro.CadastroRepository
+import com.example.cosmeet.data.repository.cadastro.network.CadastroService
 import com.example.cosmeet.data.repository.login.LoginRepository
 import com.example.cosmeet.data.repository.login.network.LoginService
 import com.example.cosmeet.screen.SplashScreen
+import com.example.cosmeet.screen.cadastro.CadastroScreen
+import com.example.cosmeet.screen.cadastro.CadastroViewModel
 import com.example.cosmeet.screen.login.LoginScreen
 import com.example.cosmeet.screen.login.LoginViewModel
+import com.example.cosmeet.screen.start.StartScreen
 import com.example.cosmeet.ui.theme.CosmeetTheme
 
 class MainActivity : ComponentActivity() {
@@ -24,12 +29,29 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
 
-            NavHost(navController = navController, startDestination = "splash") {
-                composable("splash") {
-                    SplashScreen(navController = navController)
+            NavHost(navController = navController, startDestination = "start") {
+                composable("start") {
+                    StartScreen(navController = navController)
                 }
+
                 composable("login") {
-                    LoginScreen(loginViewModel = LoginViewModel(LoginRepository(LoginService())))
+                    LoginScreen(
+                        loginViewModel = LoginViewModel(
+                            LoginRepository(
+                                LoginService()
+                            )
+                        )
+                    )
+                }
+
+                composable("register") {
+                    CadastroScreen(
+                        cadastroViewModel = CadastroViewModel(
+                            CadastroRepository(
+                                CadastroService()
+                            )
+                        )
+                    )
                 }
             }
         }
