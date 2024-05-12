@@ -98,7 +98,7 @@ fun LoginScreen(loginViewModel: LoginViewModel) {
             Spacer(modifier = Modifier.height(24.dp))
 
             Button(
-                onClick = {loginViewModel.makeLogin(email.toString(), password.toString())},
+                onClick = {loginViewModel.makeLogin(email.value, password.value)},
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(Color(0xFF432D67))
             ) {
