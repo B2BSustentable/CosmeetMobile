@@ -29,13 +29,13 @@ import androidx.compose.ui.unit.dp
 import com.example.cosmeet.ui.theme.CosmeetTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import com.example.cosmeet.repository.BusinessRepository
+//import com.example.cosmeet.repository.BusinessRepository
 
 @Composable
 fun CadastroScreen() {
     var scope = rememberCoroutineScope()
     var context = LocalContext.current
-    var repository = BusinessRepository()
+//    var repository = BusinessRepository()
 
     val razaoSocial = remember {
         mutableStateOf("")
@@ -129,7 +129,7 @@ fun CadastroScreen() {
                           if(razaoSocial == null){
                               message = false
                           } else if (razaoSocial != null && CNPJ != null){
-                            repository.signupBusiness(razaoSocial,email, CNPJ, senha, confirmaSenha)
+//                            repository.signupBusiness(razaoSocial,email, CNPJ, senha, confirmaSenha)
                               message = true
                           }
                 }
