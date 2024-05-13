@@ -1,6 +1,7 @@
 package com.example.cosmeet.screen.application.perfil
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,12 +31,13 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.cosmeet.R
 import com.example.cosmeet.screen.application.home.HomeScreen
 import com.example.cosmeet.ui.theme.CosmeetTheme
 
 @Composable
-fun PerfilScreen() {
+fun PerfilScreen(navController : NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -92,9 +94,9 @@ fun PerfilScreen() {
             ) {
                 Text(
                     text = "Home",
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        fontSize = 16.sp
+                    style = MaterialTheme.typography.bodySmall.copy(fontSize = 16.sp,
                     ),
+                    modifier = Modifier.clickable(onClick = { navController.navigate("home") }).padding(4.dp)
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 Text(
@@ -136,14 +138,14 @@ fun PerfilScreen() {
                             "Desde o início, a NIVEA se comprometeu a promover a beleza autêntica e o bem-estar de nossos clientes. Estamos empenhados em cuidar de sua pele e fornecer produtos de alta qualidade que a mantenham saudável e radiante [...]", fontSize = 12.sp)
                 }
                 Spacer(modifier = Modifier.height(25.dp))
-                Button(onClick = { /*TODO*/ },  colors = ButtonDefaults.buttonColors(Color(0xFF432D67))
+                Button(onClick = {navController.navigate("editProfile") },  colors = ButtonDefaults.buttonColors(Color(0xFF432D67))
                 ) {
                     Text(text = "Editar Perfil")
                 }
                 Spacer(modifier = Modifier.height(50.dp))
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                     Text(text = "BÁSICO", fontWeight = FontWeight.Bold)
-                    Button(onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(Color(0xFF432D67))
+                    Button(onClick = { navController.navigate("edit") }, colors = ButtonDefaults.buttonColors(Color(0xFF432D67))
                     ) {
                         Text(text = "Trocar Plano")
                     }
@@ -153,10 +155,10 @@ fun PerfilScreen() {
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun PreviewPerfil() {
-    CosmeetTheme {
-        PerfilScreen()
-    }
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun PreviewPerfil() {
+//    CosmeetTheme {
+//        PerfilScreen()
+//    }
+//}

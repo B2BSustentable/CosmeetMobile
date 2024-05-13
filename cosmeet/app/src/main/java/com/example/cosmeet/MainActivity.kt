@@ -14,10 +14,12 @@ import com.example.cosmeet.data.repository.cadastro.CadastroRepository
 import com.example.cosmeet.data.repository.cadastro.network.CadastroService
 import com.example.cosmeet.data.repository.login.LoginRepository
 import com.example.cosmeet.data.repository.login.network.LoginService
-import com.example.cosmeet.screen.SplashScreen
-import com.example.cosmeet.screen.application.home.CompanyScreen
+import com.example.cosmeet.screen.application.home.HomeScreen
+import com.example.cosmeet.screen.application.perfil.EditProfile
+import com.example.cosmeet.screen.application.perfil.PerfilScreen
 import com.example.cosmeet.screen.cadastro.CadastroScreen
 import com.example.cosmeet.screen.cadastro.CadastroViewModel
+import com.example.cosmeet.screen.cadastro.SecondStepRegister
 import com.example.cosmeet.screen.login.LoginScreen
 import com.example.cosmeet.screen.login.LoginViewModel
 import com.example.cosmeet.screen.start.StartScreen
@@ -57,17 +59,51 @@ class MainActivity : ComponentActivity() {
                     )
                 }
 
-                composable("company/{companyName}") { backStackEntry ->
-                    val companyName = backStackEntry.arguments?.getString("companyName")
-                    CompanyScreen()
+                composable("firstStepRegister") {
+                    CadastroScreen(
+                        navController = navController, cadastroViewModel = CadastroViewModel(
+                            CadastroRepository(
+                                CadastroService()
+                            )
+                        )
+                    )
+                }
+                composable("secondStepRegister") {
+                    SecondStepRegister(
+                        navController = navController,
+                        cadastroViewModel = CadastroViewModel(
+                            CadastroRepository(
+                                CadastroService()
+                            )
+                        )
+                    )
+                }
+
+                composable("home") {
+                    HomeScreen(
+                        navController = navController
+                    )
+                }
+
+                composable("profile") {
+                    PerfilScreen(
+                        navController = navController
+                    )
+                }
+
+                composable("editProfile") {
+                    EditProfile(
+                        navController = navController
+                    )
                 }
             }
         }
     }
 }
+
 @Composable
 fun Greeting() {
-    Image(painter = painterResource(id = R.mipmap.pix), contentDescription = "pix" )
+    Image(painter = painterResource(id = R.mipmap.pix), contentDescription = "pix")
 
 }
 

@@ -24,9 +24,10 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.cosmeet.R
 @Composable
-fun LoginScreen(loginViewModel: LoginViewModel) {
+fun LoginScreen(navController: NavHostController, loginViewModel: LoginViewModel) {
     val isSecondStepVisible = remember { mutableStateOf(false) }
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
@@ -98,7 +99,10 @@ fun LoginScreen(loginViewModel: LoginViewModel) {
             Spacer(modifier = Modifier.height(24.dp))
 
             Button(
-                onClick = {loginViewModel.makeLogin(email.value, password.value)},
+                onClick = {
+                    loginViewModel.makeLogin(email.value, password.value)
+                    navController.navigate("home")
+                          },
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(Color(0xFF432D67))
             ) {

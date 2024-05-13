@@ -10,13 +10,12 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel(
     private val repository: LoginRepository
-): ViewModel()  {
-
+) : ViewModel() {
     fun makeLogin(email: String, senha: String) {
         viewModelScope.launch {
             val resource = repository.makeLogin(email, senha)
 
-            if(resource is Resource.Success) {
+            if (resource is Resource.Success) {
                 Log.d("***deu bom", "${resource.data}")
             } else if (resource is Resource.Fail) {
 
@@ -31,5 +30,4 @@ class LoginViewModel(
             }
         }
     }
-
 }

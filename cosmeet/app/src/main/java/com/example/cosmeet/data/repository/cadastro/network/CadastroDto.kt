@@ -5,19 +5,18 @@ class CadastroDto {
 }
 
 data class User(
-    val id: String,
     val name: String,
     val email: String,
     val password: String
 )
 
 data class Plan(
-    val id: String,
+    val id: Int,
     val name: String,
-    val price: String,
-    val favorite: String,
-    val limit_search: String,
-    val limit_category: String
+    val price: Double,
+    val favorite: Boolean,
+    val limit_search: Boolean,
+    val limit_category: Int
 )
 
 data class Business(

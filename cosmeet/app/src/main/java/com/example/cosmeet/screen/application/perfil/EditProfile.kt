@@ -46,11 +46,13 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.cosmeet.R
 import com.example.cosmeet.ui.theme.CosmeetTheme
 
 @Composable
-fun EditProfile() {
+fun EditProfile(navController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -161,7 +163,7 @@ fun EditProfile() {
                                     value = "Cururipe",
                                     onValueChange = {},
                                     label = { Text("Rua") },
-                                    modifier = Modifier.width(200.dp)
+                                    modifier = Modifier.width(130.dp)
                                 )
 
                                 Spacer(modifier = Modifier.width(10.dp))
@@ -216,11 +218,3 @@ fun EditProfile() {
     }
 }
 
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun PreviewEdit() {
-    CosmeetTheme {
-        EditProfile()
-    }
-}

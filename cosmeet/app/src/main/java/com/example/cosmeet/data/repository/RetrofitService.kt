@@ -1,5 +1,6 @@
 package com.example.cosmeet.data.repository
 import com.example.cosmeet.data.repository.ExternalRoutes.Companion.BASE_URL
+import com.example.cosmeet.data.repository.cadastro.network.ICadastroService
 import com.example.cosmeet.data.repository.login.network.ILoginService
 import okhttp3.Interceptor
 import retrofit2.Retrofit
@@ -26,5 +27,9 @@ object RetrofitService {
 
     val login: ILoginService by lazy {
         retrofit.create(ILoginService::class.java)
+    }
+
+    val cadastro: ICadastroService by lazy {
+        retrofit.create(ICadastroService::class.java)
     }
 }

@@ -1,6 +1,7 @@
 package com.example.cosmeet.screen.application.home
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -32,6 +33,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.cosmeet.R
 import com.example.cosmeet.ui.theme.CosmeetTheme
 
@@ -57,7 +59,7 @@ val mockCompanies = listOf(
 )
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController : NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -118,7 +120,8 @@ fun HomeScreen() {
                 Text(
                     text = "Perfil",
                     style = MaterialTheme.typography.bodyMedium,
-                    fontSize = 16.sp
+                    fontSize = 16.sp,
+                    modifier = Modifier.clickable(onClick = { navController.navigate("profile") }).padding(4.dp)
                 )
             }
             Spacer(modifier = Modifier.height(10.dp))
@@ -163,10 +166,10 @@ fun CompanyCard(company: Company, onClick: () -> Unit) {
         }
     }
 }
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun PreviewHome() {
-    CosmeetTheme {
-        HomeScreen()
-    }
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun PreviewHome() {
+//    CosmeetTheme {
+//        HomeScreen()
+//    }
+//}
