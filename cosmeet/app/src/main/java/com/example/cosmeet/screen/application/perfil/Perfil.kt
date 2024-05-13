@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,7 +39,7 @@ fun PerfilScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(start = 16.dp, top = 30.dp, end = 20.dp, bottom = 0.dp),
+            .padding(start = 20.dp, top = 30.dp, end = 16.dp, bottom = 0.dp),
         horizontalAlignment = Alignment.Start
     ) {
         Row(
@@ -104,7 +105,12 @@ fun PerfilScreen() {
                     fontSize = 16.sp
                 )
             }
+            Spacer(modifier = Modifier.height(10.dp))
+
+            Divider(modifier = Modifier.fillMaxWidth())
+
             Spacer(modifier = Modifier.height(30.dp))
+
             Column(modifier = Modifier.fillMaxWidth()) {
                 Row {
                     Image(
@@ -136,7 +142,7 @@ fun PerfilScreen() {
                 }
                 Spacer(modifier = Modifier.height(50.dp))
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                    Text(text = "PREMIUM", fontWeight = FontWeight.Bold)
+                    Text(text = "BÁSICO", fontWeight = FontWeight.Bold)
                     Button(onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(Color(0xFF432D67))
                     ) {
                         Text(text = "Trocar Plano")

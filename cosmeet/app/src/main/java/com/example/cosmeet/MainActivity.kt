@@ -15,6 +15,7 @@ import com.example.cosmeet.data.repository.cadastro.network.CadastroService
 import com.example.cosmeet.data.repository.login.LoginRepository
 import com.example.cosmeet.data.repository.login.network.LoginService
 import com.example.cosmeet.screen.SplashScreen
+import com.example.cosmeet.screen.application.home.CompanyScreen
 import com.example.cosmeet.screen.cadastro.CadastroScreen
 import com.example.cosmeet.screen.cadastro.CadastroViewModel
 import com.example.cosmeet.screen.login.LoginScreen
@@ -52,6 +53,11 @@ class MainActivity : ComponentActivity() {
                             )
                         )
                     )
+                }
+
+                composable("company/{companyName}") { backStackEntry ->
+                    val companyName = backStackEntry.arguments?.getString("companyName")
+                    CompanyScreen()
                 }
             }
         }
