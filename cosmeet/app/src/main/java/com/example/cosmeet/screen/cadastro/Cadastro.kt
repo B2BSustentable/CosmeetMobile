@@ -14,9 +14,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -68,10 +70,15 @@ fun CadastroScreen(navController: NavHostController, cadastroViewModel: Cadastro
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(start = 16.dp, top = 50.dp, end = 16.dp, bottom = 0.dp),
+            .padding(start = 16.dp, top = 40.dp, end = 16.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
     ) {
+        Icon(
+            imageVector = Icons.Filled.ArrowBack,
+            contentDescription = "back"
+        )
+        Spacer(modifier = Modifier.height(15.dp))   
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             Column {
 
@@ -161,10 +168,15 @@ fun SecondStepRegister() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(start = 16.dp, top = 50.dp, end = 16.dp, bottom = 0.dp),
+            .padding(start = 16.dp, top = 40.dp, end = 16.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
     ) {
+        Icon(
+            imageVector = Icons.Filled.ArrowBack,
+            contentDescription = "back"
+        )
+        Spacer(modifier = Modifier.height(15.dp))
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             Column {
 
@@ -264,6 +276,6 @@ fun SecondStepRegister() {
 //@Composable
 //fun GreetingPreview() {
 //    CosmeetTheme {
-//        CadastroScreen()
+//        CadastroScreen(CadastroViewModel())
 //    }
 //}

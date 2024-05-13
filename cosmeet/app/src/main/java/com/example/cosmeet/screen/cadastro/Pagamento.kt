@@ -11,9 +11,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,10 +37,15 @@ fun PagamentoScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(start = 16.dp, top = 50.dp, end = 16.dp),
+            .padding(start = 16.dp, top = 40.dp, end = 16.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
     ) {
+        Icon(
+            imageVector = Icons.Filled.ArrowBack,
+            contentDescription = "back"
+        )
+        Spacer(modifier = Modifier.height(15.dp))
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             Text(
                 text = "Pagamento",
@@ -71,7 +79,7 @@ fun PagamentoScreen() {
             Spacer(modifier = Modifier.height(8.dp))
             Divider(modifier = Modifier.fillMaxWidth())
             Column(modifier = Modifier.height(350.dp), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(text = "TOTAL A PAGAR: /preço do plano/", fontWeight = FontWeight.Bold)
+                Text(text = "TOTAL A PAGAR: R$ 20,00", fontWeight = FontWeight.Bold)
                 Spacer(modifier = Modifier.height(30.dp))
                 Image(painter = painterResource(id = R.mipmap.pix), contentDescription = "pix", modifier = Modifier.size(150.dp))
                 Spacer(modifier = Modifier.height(20.dp))
