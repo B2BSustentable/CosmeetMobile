@@ -33,6 +33,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.cosmeet.R
 import com.example.cosmeet.screen.login.LoginScreen
 import com.example.cosmeet.screen.login.LoginViewModel
@@ -42,7 +43,7 @@ import kotlinx.coroutines.launch
 //import com.example.cosmeet.repository.BusinessRepository
 
 @Composable
-fun CadastroScreen(cadastroViewModel: CadastroViewModel) {
+fun CadastroScreen(navController: NavHostController, cadastroViewModel: CadastroViewModel) {
     var scope = rememberCoroutineScope()
     var context = LocalContext.current
 //    var repository = BusinessRepository()

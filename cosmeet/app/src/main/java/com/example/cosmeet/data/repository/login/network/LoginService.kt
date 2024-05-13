@@ -2,14 +2,14 @@ package com.example.cosmeet.data.repository.login.network
 
 import com.example.cosmeet.data.repository.ProcessStatus
 import com.example.cosmeet.data.repository.Resource
-import com.example.cosmeet.data.repository.RetrofitClient
+import com.example.cosmeet.data.repository.RetrofitService
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 class LoginService {
     suspend fun login(email: String, senha: String): Resource<String> {
        return try {
-           val response = RetrofitClient.login.makeLogin(email, senha)
+           val response = RetrofitService.login.makeLogin(email, senha)
 
            if (response.isSuccessful) {
                Resource.Success("")

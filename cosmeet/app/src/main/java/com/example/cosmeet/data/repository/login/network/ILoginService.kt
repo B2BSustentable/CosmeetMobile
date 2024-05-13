@@ -11,6 +11,6 @@ interface ILoginService {
     suspend fun makeLogin(
         @Query("email") email: String,
         @Query("password") senha: String
-    ): Response<ResponseBody>
+    ): Response<LoginDto>
 
 }

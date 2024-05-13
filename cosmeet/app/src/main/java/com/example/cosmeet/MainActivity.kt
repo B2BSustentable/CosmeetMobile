@@ -36,6 +36,7 @@ class MainActivity : ComponentActivity() {
 
                 composable("login") {
                     LoginScreen(
+                        navController = navController,
                         loginViewModel = LoginViewModel(
                             LoginRepository(
                                 LoginService()
@@ -46,6 +47,7 @@ class MainActivity : ComponentActivity() {
 
                 composable("register") {
                     CadastroScreen(
+                        navController = navController,
                         cadastroViewModel = CadastroViewModel(
                             CadastroRepository(
                                 CadastroService()

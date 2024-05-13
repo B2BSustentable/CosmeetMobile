@@ -22,7 +22,6 @@ class LoginViewModel(
 
                 when (resource.status) {
                     ProcessStatus.NoInternet -> Log.d("***deu ruim", "${ProcessStatus.NoInternet}")
-
                     ProcessStatus.TimeOut -> Log.d("***deu ruim", "${ProcessStatus.TimeOut}")
 
                     else -> {
