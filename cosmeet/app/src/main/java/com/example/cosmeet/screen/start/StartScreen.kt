@@ -63,7 +63,7 @@ fun StartScreen(navController: NavHostController){
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(Color(0xFF432D67))
             ) {
-                Text("Crie sua conta")
+                Text("Crie sua conta", color = Color.White)
             }
             Spacer(modifier = Modifier.height(10.dp))
             Button(

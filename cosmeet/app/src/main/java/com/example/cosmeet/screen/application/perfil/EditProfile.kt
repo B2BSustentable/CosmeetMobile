@@ -210,7 +210,7 @@ fun EditProfile(navController: NavHostController) {
                         modifier = Modifier.fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(Color(0xFF432D67))
                     ) {
-                        Text("Salvar")
+                        Text("Salvar", color = Color.White)
                     }
                 }
             }

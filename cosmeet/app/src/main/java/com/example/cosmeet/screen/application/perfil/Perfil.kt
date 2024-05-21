@@ -140,14 +140,14 @@ fun PerfilScreen(navController : NavHostController) {
                 Spacer(modifier = Modifier.height(25.dp))
                 Button(onClick = {navController.navigate("editProfile") },  colors = ButtonDefaults.buttonColors(Color(0xFF432D67))
                 ) {
-                    Text(text = "Editar Perfil")
+                    Text(text = "Editar Perfil", color = Color.White)
                 }
                 Spacer(modifier = Modifier.height(50.dp))
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                     Text(text = "BÁSICO", fontWeight = FontWeight.Bold)
                     Button(onClick = { navController.navigate("edit") }, colors = ButtonDefaults.buttonColors(Color(0xFF432D67))
                     ) {
-                        Text(text = "Trocar Plano")
+                        Text("Trocar plano", color = Color.White)
                     }
                 }
             }

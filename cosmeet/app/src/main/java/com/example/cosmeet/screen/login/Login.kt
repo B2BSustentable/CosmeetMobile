@@ -106,7 +106,7 @@ fun LoginScreen(navController: NavHostController, loginViewModel: LoginViewModel
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(Color(0xFF432D67))
             ) {
-                Text("Entrar")
+                Text("Entrar", color = Color.White)
             }
             Spacer(modifier = Modifier.height(20.dp))
             Text(
