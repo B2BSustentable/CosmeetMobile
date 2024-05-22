@@ -2,8 +2,9 @@
 <resources>
     <style name="Theme.Cosmeet" parent="android:Theme.Material.Light.NoActionBar"/>
 
-<!--    <style name="Theme.SplashScreen" parent="Theme.Cosmeet">-->
-<!--        <item name="windowSplashScreenAnimatedIcon">@drawable/logo</item>-->
-<!--        <item name="postSplashScreenTheme">@style/Theme.Cosmeet</item>-->
-<!--    </style>-->
+    <style name="Theme.SplashSreenCosmeet" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/purple_500</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splashlogo</item>
+        <item name="postSplashScreenTheme">@style/Theme.Cosmeet</item>
+    </style>
 </resources>
