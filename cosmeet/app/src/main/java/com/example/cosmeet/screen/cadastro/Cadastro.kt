@@ -40,16 +40,13 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.cosmeet.R
-import com.example.cosmeet.data.repository.cadastro.network.CadastroRequest
-import com.example.cosmeet.data.repository.cadastro.network.Plan
-import com.example.cosmeet.data.repository.cadastro.network.User
 
 enum class PlanType {
     BASICO, COMMON, PREMIUM
 }
 
 @Composable
-fun CadastroScreen(navController: NavHostController, cadastroViewModel: CadastroViewModel) {
+fun CadastroScreen(navController: NavHostController) {
     var scope = rememberCoroutineScope()
     var context = LocalContext.current
     var errorMessage by remember { mutableStateOf("") }
@@ -144,14 +141,14 @@ fun CadastroScreen(navController: NavHostController, cadastroViewModel: Cadastro
                 if (nomeCompleto.value.isNotEmpty() && emailPessoal.value.isNotEmpty() && senhaPessoal.value.isNotEmpty()) {
 //                    cadastroViewModel.checkEmailAvailability(emailPessoal.value) { isEmailAvailable ->
 //                        if (isEmailAvailable) {
-                    cadastroViewModel.makeCadastroFirstStep(
-                        nomeCompleto.value,
-                        emailPessoal.value,
-                        senhaPessoal.value
-                    )
-                    cadastroViewModel.atualizarNomeCompleto(nomeCompleto.value)
-                    cadastroViewModel.atualizarEmailPessoal(emailPessoal.value)
-                    cadastroViewModel.atualizarSenhaPessoal(senhaPessoal.value)
+//                    cadastroViewModel.makeCadastroFirstStep(
+//                        nomeCompleto.value,
+//                        emailPessoal.value,
+//                        senhaPessoal.value
+//                    )
+//                    cadastroViewModel.atualizarNomeCompleto(nomeCompleto.value)
+//                    cadastroViewModel.atualizarEmailPessoal(emailPessoal.value)
+//                    cadastroViewModel.atualizarSenhaPessoal(senhaPessoal.value)
                     navController.navigate("secondStepRegister")
 //                        } else {
 //                            errorMessage = "O e-mail já está em uso. Por favor, escolha outro."
@@ -191,7 +188,7 @@ fun CadastroScreen(navController: NavHostController, cadastroViewModel: Cadastro
 }
 
 @Composable
-fun SecondStepRegister(navController: NavHostController, cadastroViewModel: CadastroViewModel) {
+fun SecondStepRegister(navController: NavHostController) {
     var errorMessage by remember { mutableStateOf("") }
 
     val razaoSocial = remember {
@@ -219,9 +216,9 @@ fun SecondStepRegister(navController: NavHostController, cadastroViewModel: Cada
         mutableStateOf("")
     }
 
-    val nomeCompleto = cadastroViewModel.nomeCompleto
-    val emailPessoal = cadastroViewModel.emailPessoal
-    val senhaPessoal = cadastroViewModel.senhaPessoal
+//    val nomeCompleto = cadastroViewModel.nomeCompleto
+//    val emailPessoal = cadastroViewModel.emailPessoal
+//    val senhaPessoal = cadastroViewModel.senhaPessoal
 
     Spacer(modifier = Modifier.height(8.dp))
     Column(
@@ -303,19 +300,19 @@ fun SecondStepRegister(navController: NavHostController, cadastroViewModel: Cada
                 if (razaoSocial.value.isNotEmpty() && telefone.value.isNotEmpty() && emailEmpresarial.value.isNotEmpty() && CNPJ.value.isNotEmpty()) {
 //                    cadastroViewModel.checkEmailAvailability(emailEmpresarial.value) { isEmailAvailable ->
 //                        if (isEmailAvailable) {
-                            cadastroViewModel.makeCadastroSecondStep(razaoSocial.value, emailEmpresarial.value, telefone.value, CNPJ.value)
-                            cadastroViewModel.makeCadastroCompleto(
-                                CadastroRequest(
-                                    razaoSocial.value,
-                                    emailEmpresarial.value,
-                                    telefone.value,
-                                    CNPJ.value,
-                                    about.value,
-                                    photo.value,
-                                    occupation.value,
-                                    User(nomeCompleto, emailPessoal ,senhaPessoal),
-                                    Plan(1, "BASIC", 50.0, false, false, 2))
-                            )
+//                            cadastroViewModel.makeCadastroSecondStep(razaoSocial.value, emailEmpresarial.value, telefone.value, CNPJ.value)
+//                            cadastroViewModel.makeCadastroCompleto(
+//                                CadastroRequest(
+//                                    razaoSocial.value,
+//                                    emailEmpresarial.value,
+//                                    telefone.value,
+//                                    CNPJ.value,
+//                                    about.value,
+//                                    photo.value,
+//                                    occupation.value,
+//                                    User(nomeCompleto, emailPessoal ,senhaPessoal),
+//                                    Plan(1, "BASIC", 50.0, false, false, 2))
+//                            )
                             navController.navigate("login")
 //                        } else {
 //                            errorMessage = "O e-mail já está em uso. Por favor, escolha outro."

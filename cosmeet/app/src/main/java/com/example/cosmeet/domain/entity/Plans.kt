@@ -1,10 +1,12 @@
 package com.example.cosmeet.domain.entity
 
+import com.google.gson.annotations.SerializedName
+
 data class Plans(
-    var idPlan:Int? = null,
+    var id: Long? = null,
     var name: String? = null,
     var price: Double? = null,
     var favorite: Boolean? = null,
-    var limitSearch: Boolean? = null,
-    var limitCategory: Int? = null
+    @field:SerializedName("limit_search") var limitSearch: Boolean? = null,
+    @field:SerializedName("limit_category") var limitCategory: Int? = null,
 )

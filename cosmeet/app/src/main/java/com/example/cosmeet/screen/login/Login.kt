@@ -26,6 +26,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.cosmeet.R
+import com.example.cosmeet.viewmodel.LoginViewModel
+
 @Composable
 fun LoginScreen(navController: NavHostController, loginViewModel: LoginViewModel) {
     val isSecondStepVisible = remember { mutableStateOf(false) }
@@ -100,8 +102,7 @@ fun LoginScreen(navController: NavHostController, loginViewModel: LoginViewModel
 
             Button(
                 onClick = {
-                    loginViewModel.makeLogin(email.value, password.value)
-                    navController.navigate("home")
+                    loginViewModel.login(email.value, password.value)
                           },
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(Color(0xFF432D67))
@@ -241,12 +242,3 @@ fun LoginScreen(navController: NavHostController, loginViewModel: LoginViewModel
         )
     }
 }
-
-
-//@Preview(showBackground = true, showSystemUi = true)
-//@Composable
-//fun PreviewPlano() {
-//    CosmeetTheme {
-//        LoginScreen()
-//    }
-//}
