@@ -16,14 +16,4 @@ interface Api {
         @Query("email") email: String?,
         @Query("password") password: String?
     ): Response<LoginResponse>
-
-
-//    @GET("/filmes/{id}")
-//    suspend fun get(@Path("id") id:Int): Response<Filme>
-//    @POST("/filmes")
-//    suspend fun post(@Body novoFilme:Filme): Response<Filme>
-//    @PUT("/filmes/{id}")
-//    suspend fun put(@Path("id") id:Int, @Body filmeEditado:Filme): Response<Filme>
-//    @DELETE("/filmes/{id}")
-//    suspend fun delete(@Path("id") id:Int): Response<Void>
 }
