@@ -1,6 +1,7 @@
 package com.example.cosmeet.routes
 
-import com.example.cosmeet.domain.dto.LoginResponse
+import com.example.cosmeet.domain.dto.BusinessResponse
+import com.example.cosmeet.domain.dto.UserResponse
 import retrofit2.Response
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -15,5 +16,10 @@ interface Api {
     suspend fun getUser(
         @Query("email") email: String?,
         @Query("password") password: String?
-    ): Response<LoginResponse>
+    ): Response<UserResponse>
+
+    @GET("/business/{id}")
+    suspend fun getBusinessById(
+        @Path("id") userId: Long?
+    ): Response<BusinessResponse>
 }

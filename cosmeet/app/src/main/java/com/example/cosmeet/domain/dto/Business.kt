@@ -1,9 +1,11 @@
-package com.example.cosmeet.domain.entity
+package com.example.cosmeet.domain.dto
 
+import com.example.cosmeet.domain.entity.Address
 import kotlinx.serialization.Serializable
 
+@Suppress("PLUGIN_IS_NOT_ENABLED")
 @Serializable
-data class Business(
+data class BusinessResponse(
     var id: Long? = null,
     var name: String? = null,
     var email: String? = null,
@@ -12,6 +14,5 @@ data class Business(
     var occupation: String? = null,
     var about: String? = null,
     var photo: String? = null,
-    var user: User? = null,
-    var plans: Plans? = null,
-    )
+    var address: Address? = null,
+)

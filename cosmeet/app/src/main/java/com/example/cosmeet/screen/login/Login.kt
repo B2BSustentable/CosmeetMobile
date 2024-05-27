@@ -1,5 +1,6 @@
 package com.example.cosmeet.screen.login
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -23,6 +24,8 @@ import androidx.navigation.NavHostController
 import com.example.cosmeet.R
 import com.example.cosmeet.viewmodel.LoginViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 @Composable
 fun LoginScreen(navController: NavHostController, loginViewModel: LoginViewModel = viewModel()) {
@@ -30,12 +33,15 @@ fun LoginScreen(navController: NavHostController, loginViewModel: LoginViewModel
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
 
-    val loginResponse by loginViewModel.login.observeAsState()
+    val loginResponse by loginViewModel.business.observeAsState()
     val errorApi by loginViewModel.erroApi.observeAsState("")
     val isLoading by loginViewModel.isLoading.observeAsState(false)
 
     LaunchedEffect(loginResponse) {
         loginResponse?.let {
+            Log.d("response**", it.toString())
+            val jsonString = Json.encodeToString(it)
+            navController.currentBackStackEntry?.savedStateHandle?.set("LOGIN_RESPONSE", jsonString)
             navController.navigate("home")
         }
     }

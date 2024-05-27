@@ -1,5 +1,8 @@
 package com.example.cosmeet.domain.entity
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Address(
     var id: Long? = null,
     var number: Int? = null,
