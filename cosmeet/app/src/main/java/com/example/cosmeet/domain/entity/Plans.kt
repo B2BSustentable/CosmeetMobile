@@ -3,7 +3,6 @@ package com.example.cosmeet.domain.entity
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
-@Serializable
 data class Plans(
     var id: Long? = null,
     var name: String? = null,

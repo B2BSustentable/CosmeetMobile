@@ -18,6 +18,7 @@ import com.example.cosmeet.screen.login.LoginScreen
 import com.example.cosmeet.viewmodel.LoginViewModel
 import com.example.cosmeet.screen.start.StartScreen
 import com.example.cosmeet.ui.theme.CosmeetTheme
+import com.example.cosmeet.viewmodel.HomeViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,8 +34,7 @@ class MainActivity : ComponentActivity() {
                     composable("login") {
                         LoginScreen(
                             navController = navController,
-                            loginViewModel = LoginViewModel(
-                            )
+                            loginViewModel = LoginViewModel()
                         )
                     }
                     composable("register") {
@@ -54,7 +54,8 @@ class MainActivity : ComponentActivity() {
                     }
                     composable("home") {
                         HomeScreen(
-                            navController = navController
+                            navController = navController,
+                            homeViewModel = HomeViewModel()
                         )
                     }
                     composable("profile") {

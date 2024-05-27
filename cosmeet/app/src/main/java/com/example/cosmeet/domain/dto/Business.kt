@@ -3,8 +3,6 @@ package com.example.cosmeet.domain.dto
 import com.example.cosmeet.domain.entity.Address
 import kotlinx.serialization.Serializable
 
-@Suppress("PLUGIN_IS_NOT_ENABLED")
-@Serializable
 data class BusinessResponse(
     var id: Long? = null,
     var name: String? = null,

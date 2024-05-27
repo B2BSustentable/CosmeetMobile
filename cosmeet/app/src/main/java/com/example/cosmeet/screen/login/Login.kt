@@ -24,6 +24,7 @@ import androidx.navigation.NavHostController
 import com.example.cosmeet.R
 import com.example.cosmeet.viewmodel.LoginViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.google.gson.Gson
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -40,8 +41,8 @@ fun LoginScreen(navController: NavHostController, loginViewModel: LoginViewModel
     LaunchedEffect(loginResponse) {
         loginResponse?.let {
             Log.d("response**", it.toString())
-            val jsonString = Json.encodeToString(it)
-            navController.currentBackStackEntry?.savedStateHandle?.set("LOGIN_RESPONSE", jsonString)
+            val jsonResponse = Gson().toJson(it)
+            navController.currentBackStackEntry?.savedStateHandle?.set("BUSINESS", jsonResponse)
             navController.navigate("home")
         }
     }

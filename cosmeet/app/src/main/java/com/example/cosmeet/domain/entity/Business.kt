@@ -2,7 +2,6 @@ package com.example.cosmeet.domain.entity
 
 import kotlinx.serialization.Serializable
 
-@Serializable
 data class Business(
     var id: Long? = null,
     var name: String? = null,
