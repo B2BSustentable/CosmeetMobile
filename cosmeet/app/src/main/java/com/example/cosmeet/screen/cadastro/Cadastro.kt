@@ -40,7 +40,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.cosmeet.R
-import com.example.cosmeet.data.repository.cadastro.network.CadastroRequest
+import com.example.cosmeet.data.repository.cadastro.network.Business
 import com.example.cosmeet.data.repository.cadastro.network.Plan
 import com.example.cosmeet.data.repository.cadastro.network.User
 
@@ -53,15 +53,15 @@ fun CadastroScreen(navController: NavHostController, cadastroViewModel: Cadastro
     var scope = rememberCoroutineScope()
     var context = LocalContext.current
     var errorMessage by remember { mutableStateOf("") }
-    
+
     val nomeCompleto = remember {
         mutableStateOf("")
     }
-    
+
     val emailPessoal = remember {
         mutableStateOf("")
     }
-    
+
     val senhaPessoal = remember {
         mutableStateOf("")
     }
@@ -149,9 +149,6 @@ fun CadastroScreen(navController: NavHostController, cadastroViewModel: Cadastro
                         emailPessoal.value,
                         senhaPessoal.value
                     )
-                    cadastroViewModel.atualizarNomeCompleto(nomeCompleto.value)
-                    cadastroViewModel.atualizarEmailPessoal(emailPessoal.value)
-                    cadastroViewModel.atualizarSenhaPessoal(senhaPessoal.value)
                     navController.navigate("secondStepRegister")
 //                        } else {
 //                            errorMessage = "O e-mail já está em uso. Por favor, escolha outro."
@@ -218,10 +215,6 @@ fun SecondStepRegister(navController: NavHostController, cadastroViewModel: Cada
     val occupation = remember {
         mutableStateOf("")
     }
-
-    val nomeCompleto = cadastroViewModel.nomeCompleto
-    val emailPessoal = cadastroViewModel.emailPessoal
-    val senhaPessoal = cadastroViewModel.senhaPessoal
 
     Spacer(modifier = Modifier.height(8.dp))
     Column(
@@ -305,7 +298,7 @@ fun SecondStepRegister(navController: NavHostController, cadastroViewModel: Cada
 //                        if (isEmailAvailable) {
                             cadastroViewModel.makeCadastroSecondStep(razaoSocial.value, emailEmpresarial.value, telefone.value, CNPJ.value)
                             cadastroViewModel.makeCadastroCompleto(
-                                CadastroRequest(
+                                Business(
                                     razaoSocial.value,
                                     emailEmpresarial.value,
                                     telefone.value,
@@ -313,7 +306,7 @@ fun SecondStepRegister(navController: NavHostController, cadastroViewModel: Cada
                                     about.value,
                                     photo.value,
                                     occupation.value,
-                                    User(nomeCompleto, emailPessoal ,senhaPessoal),
+                                    User(cadastroViewModel.nomeCompleto.value, cadastroViewModel.emailPessoal.value, cadastroViewModel.senhaPessoal.value),
                                     Plan(1, "BASIC", 50.0, false, false, 2))
                             )
                             navController.navigate("login")

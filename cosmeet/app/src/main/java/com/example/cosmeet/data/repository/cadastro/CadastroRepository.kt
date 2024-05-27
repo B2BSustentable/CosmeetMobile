@@ -1,7 +1,7 @@
 package com.example.cosmeet.data.repository.cadastro
 
 import com.example.cosmeet.data.repository.Resource
-import com.example.cosmeet.data.repository.cadastro.network.CadastroRequest
+import com.example.cosmeet.data.repository.cadastro.network.Business
 import com.example.cosmeet.data.repository.cadastro.network.CadastroService
 
 class CadastroRepository (
@@ -27,7 +27,7 @@ class CadastroRepository (
         }
     }
 
-    suspend fun makeCadastroCompleto(cadastroRequest: CadastroRequest): Resource<CadastroRequest> {
+    suspend fun makeCadastroCompleto(cadastroRequest: Business): Resource<Business> {
         val resource = service.cadastroCompleto(cadastroRequest)
 
         return if (resource is Resource.Success) {

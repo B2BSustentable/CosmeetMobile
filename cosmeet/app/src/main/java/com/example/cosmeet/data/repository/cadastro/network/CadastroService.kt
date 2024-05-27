@@ -54,7 +54,7 @@ class CadastroService {
         }
     }
 
-    suspend fun cadastroCompleto(cadastroRequest: CadastroRequest): Resource<CadastroRequest> {
+    suspend fun cadastroCompleto(cadastroRequest: Business): Resource<Business> {
         return try {
             val response = RetrofitService.cadastro.makeCadastroCompleto(cadastroRequest)
 

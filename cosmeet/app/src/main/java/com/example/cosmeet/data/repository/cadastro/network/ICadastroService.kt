@@ -3,7 +3,6 @@ package com.example.cosmeet.data.repository.cadastro.network
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -22,9 +21,9 @@ interface ICadastroService {
         @Query("senhaPessoal") senhaPessoal: String
     ): Response<ResponseBody>
 
-    @POST("/api/business")
+    @POST("business")
     suspend fun makeCadastroCompleto(
-        @Body request: CadastroRequest // Use @Body para enviar os dados no corpo da requisição
+        @Body request: Business // Use @Body para enviar os dados no corpo da requisição
     ): Response<ResponseBody>
 
 //    @GET("users")
