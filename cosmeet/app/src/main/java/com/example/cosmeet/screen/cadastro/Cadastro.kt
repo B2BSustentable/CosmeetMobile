@@ -1,5 +1,7 @@
 package com.example.cosmeet.screen.cadastro
 
+import SharedViewModel
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -25,10 +27,10 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,34 +40,32 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.cosmeet.R
+import com.example.cosmeet.viewmodel.CadastroViewModel
 
 enum class PlanType {
     BASICO, COMMON, PREMIUM
 }
 
 @Composable
-fun CadastroScreen(navController: NavHostController) {
+fun CadastroScreen(
+    navController: NavHostController,
+    sharedViewModel: SharedViewModel = viewModel()
+) {
     var scope = rememberCoroutineScope()
     var context = LocalContext.current
-    var errorMessage by remember { mutableStateOf("") }
+    val errorMessage by remember { mutableStateOf("") }
     
-    val nomeCompleto = remember {
-        mutableStateOf("")
-    }
-    
-    val emailPessoal = remember {
-        mutableStateOf("")
-    }
-    
-    val senhaPessoal = remember {
-        mutableStateOf("")
-    }
+//    val nomeCompleto = remember { mutableStateOf("") }
+//    val emailPessoal = remember { mutableStateOf("") }
+//    val senhaPessoal = remember { mutableStateOf("") }
+    val confirmaSenha = remember { mutableStateOf("") }
 
-    val confirmaSenha = remember {
-        mutableStateOf("")
-    }
+    val nomeCompleto by sharedViewModel.nomeCompleto
+    val emailPessoal by sharedViewModel.emailPessoal
+    val senhaPessoal by sharedViewModel.senhaPessoal
 
     Spacer(modifier = Modifier.height(8.dp))
     Column(
@@ -99,8 +99,8 @@ fun CadastroScreen(navController: NavHostController) {
         }
 
         OutlinedTextField(
-            value = nomeCompleto.value,
-            onValueChange = { nomeCompleto.value = it },
+            value = nomeCompleto,
+            onValueChange = { sharedViewModel.updateNomeCompleto(it) },
             label = { Text("Nome Completo") },
             modifier = Modifier.fillMaxWidth()
         )
@@ -108,8 +108,8 @@ fun CadastroScreen(navController: NavHostController) {
         Spacer(modifier = Modifier.height(20.dp))
 
         OutlinedTextField(
-            value = emailPessoal.value,
-            onValueChange = {emailPessoal.value = it},
+            value = emailPessoal,
+            onValueChange = { sharedViewModel.updateEmailPessoal(it) },
             label = { Text("E-mail Pessoal") },
             modifier = Modifier.fillMaxWidth()
         )
@@ -117,8 +117,8 @@ fun CadastroScreen(navController: NavHostController) {
         Spacer(modifier = Modifier.height(20.dp))
 
         OutlinedTextField(
-            value = senhaPessoal.value,
-            onValueChange = { senhaPessoal.value = it },
+            value = senhaPessoal,
+            onValueChange = { sharedViewModel.updateSenhaPessoal(it) },
             label = { Text("Senha") },
             visualTransformation = PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth()
@@ -138,22 +138,8 @@ fun CadastroScreen(navController: NavHostController) {
 
         Button(
             onClick = {
-                if (nomeCompleto.value.isNotEmpty() && emailPessoal.value.isNotEmpty() && senhaPessoal.value.isNotEmpty()) {
-//                    cadastroViewModel.checkEmailAvailability(emailPessoal.value) { isEmailAvailable ->
-//                        if (isEmailAvailable) {
-//                    cadastroViewModel.makeCadastroFirstStep(
-//                        nomeCompleto.value,
-//                        emailPessoal.value,
-//                        senhaPessoal.value
-//                    )
-//                    cadastroViewModel.atualizarNomeCompleto(nomeCompleto.value)
-//                    cadastroViewModel.atualizarEmailPessoal(emailPessoal.value)
-//                    cadastroViewModel.atualizarSenhaPessoal(senhaPessoal.value)
+                if (nomeCompleto.isNotEmpty() && emailPessoal.isNotEmpty() && senhaPessoal.isNotEmpty()) {
                     navController.navigate("secondStepRegister")
-//                        } else {
-//                            errorMessage = "O e-mail já está em uso. Por favor, escolha outro."
-//                        }
-//                    }
                 }
             },
             modifier = Modifier.fillMaxWidth(),
@@ -167,7 +153,9 @@ fun CadastroScreen(navController: NavHostController) {
                 text = errorMessage,
                 style = MaterialTheme.typography.bodySmall,
                 color = Color.Red,
-                modifier = Modifier.padding(vertical = 8.dp).align(Alignment.CenterHorizontally)
+                modifier = Modifier
+                    .padding(vertical = 8.dp)
+                    .align(Alignment.CenterHorizontally)
             )
         }
 
@@ -188,37 +176,33 @@ fun CadastroScreen(navController: NavHostController) {
 }
 
 @Composable
-fun SecondStepRegister(navController: NavHostController) {
-    var errorMessage by remember { mutableStateOf("") }
+fun SecondStepRegister(
+    navController: NavHostController,
+    sharedViewModel: SharedViewModel = viewModel(),
+    cadastroViewModel: CadastroViewModel = viewModel()
+) {
+    val errorMessage by remember { mutableStateOf("") }
 
-    val razaoSocial = remember {
-        mutableStateOf("")
-    }
-    val telefone = remember {
-        mutableStateOf("")
-    }
-    val emailEmpresarial = remember {
-        mutableStateOf("")
-    }
-    val CNPJ = remember {
-        mutableStateOf("")
-    }
+    val nomeEmpresa = remember { mutableStateOf("") }
+    val emailEmpresa = remember { mutableStateOf("") }
+    val occupation = remember { mutableStateOf("") }
+    val telefone = remember { mutableStateOf("") }
+    val CNPJ = remember { mutableStateOf("") }
 
-    val about = remember {
-        mutableStateOf("")
-    }
+    val isBusinessCreated by cadastroViewModel.isBusinessCreated.observeAsState()
+    val erroApi by cadastroViewModel.erroApi.observeAsState()
 
-    val photo = remember {
-        mutableStateOf("")
-    }
+    Log.d("***&", sharedViewModel.nomeCompleto.value)
 
-    val occupation = remember {
-        mutableStateOf("")
+    if (isBusinessCreated == true) {
+        navController.navigate("login")
+    } else if (isBusinessCreated == false) {
+        erroApi?.let {
+            if (it.isNotEmpty()) {
+                Text("Erro: $it", color = Color.Red)
+            }
+        }
     }
-
-//    val nomeCompleto = cadastroViewModel.nomeCompleto
-//    val emailPessoal = cadastroViewModel.emailPessoal
-//    val senhaPessoal = cadastroViewModel.senhaPessoal
 
     Spacer(modifier = Modifier.height(8.dp))
     Column(
@@ -251,8 +235,8 @@ fun SecondStepRegister(navController: NavHostController) {
 
         }
         OutlinedTextField(
-            value = razaoSocial.value,
-            onValueChange = { razaoSocial.value = it},
+            value = nomeEmpresa.value,
+            onValueChange = { nomeEmpresa.value = it},
             label = { Text("Nome da Empresa") },
             modifier = Modifier.fillMaxWidth()
         )
@@ -261,7 +245,7 @@ fun SecondStepRegister(navController: NavHostController) {
 
         OutlinedTextField(
             value = "Área de Atuação",
-            onValueChange = {},
+            onValueChange = { occupation.value = it },
             label = { Text("Área de Atuação") },
             modifier = Modifier.fillMaxWidth()
         )
@@ -278,8 +262,8 @@ fun SecondStepRegister(navController: NavHostController) {
         Spacer(modifier = Modifier.height(20.dp))
 
         OutlinedTextField(
-            value = emailEmpresarial.value,
-            onValueChange = { emailEmpresarial.value = it},
+            value = emailEmpresa.value,
+            onValueChange = { emailEmpresa.value = it},
             label = { Text("E-mail Empresarial") },
             modifier = Modifier.fillMaxWidth()
         )
@@ -297,33 +281,25 @@ fun SecondStepRegister(navController: NavHostController) {
 
         Button(
             onClick = {
-                if (razaoSocial.value.isNotEmpty() && telefone.value.isNotEmpty() && emailEmpresarial.value.isNotEmpty() && CNPJ.value.isNotEmpty()) {
-//                    cadastroViewModel.checkEmailAvailability(emailEmpresarial.value) { isEmailAvailable ->
-//                        if (isEmailAvailable) {
-//                            cadastroViewModel.makeCadastroSecondStep(razaoSocial.value, emailEmpresarial.value, telefone.value, CNPJ.value)
-//                            cadastroViewModel.makeCadastroCompleto(
-//                                CadastroRequest(
-//                                    razaoSocial.value,
-//                                    emailEmpresarial.value,
-//                                    telefone.value,
-//                                    CNPJ.value,
-//                                    about.value,
-//                                    photo.value,
-//                                    occupation.value,
-//                                    User(nomeCompleto, emailPessoal ,senhaPessoal),
-//                                    Plan(1, "BASIC", 50.0, false, false, 2))
-//                            )
-                            navController.navigate("login")
-//                        } else {
-//                            errorMessage = "O e-mail já está em uso. Por favor, escolha outro."
-//                        }
-//                    }
+                if (nomeEmpresa.value.isNotEmpty() && telefone.value.isNotEmpty() && emailEmpresa.value.isNotEmpty() && CNPJ.value.isNotEmpty()) {
+                    val business = cadastroViewModel.makeBusinessRequest(
+                        nomePessoal = sharedViewModel.nomeCompleto.value,
+                        emailPessoal = sharedViewModel.emailPessoal.value,
+                        senhaPessoal = sharedViewModel.senhaPessoal.value,
+                        nomeEmpresa = nomeEmpresa.value,
+                        emailEmpresa = emailEmpresa.value,
+                        phoneEmpresa = telefone.value,
+                        cnpjEmpresa = CNPJ.value,
+                        occupation = occupation.value,
+                    )
+
+                    cadastroViewModel.create(business)
                 }
             },
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(Color(0xFF432D67))
         ) {
-            Text("Próximo")
+            Text("Cadastrar")
         }
 
         if (errorMessage.isNotEmpty()) {
@@ -331,7 +307,9 @@ fun SecondStepRegister(navController: NavHostController) {
                 text = errorMessage,
                 style = MaterialTheme.typography.bodySmall,
                 color = Color.Red,
-                modifier = Modifier.padding(vertical = 8.dp).align(Alignment.CenterHorizontally)
+                modifier = Modifier
+                    .padding(vertical = 8.dp)
+                    .align(Alignment.CenterHorizontally)
             )
         }
 

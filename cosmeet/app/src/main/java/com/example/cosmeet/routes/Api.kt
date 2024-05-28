@@ -1,8 +1,10 @@
 package com.example.cosmeet.routes
 
+import com.example.cosmeet.domain.dto.BusinessRequest
 import com.example.cosmeet.domain.dto.BusinessResponse
 import com.example.cosmeet.domain.dto.UserResponse
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -25,4 +27,9 @@ interface Api {
 
     @GET("/business")
     suspend fun getAllBusiness(): Response<List<BusinessResponse>>
+
+    @POST("/business")
+    suspend fun createBusiness(
+        @Body novoBusiness:BusinessRequest
+    ): Response<BusinessResponse>
 }
