@@ -244,7 +244,7 @@ fun SecondStepRegister(
         Spacer(modifier = Modifier.height(20.dp))
 
         OutlinedTextField(
-            value = "Área de Atuação",
+            value = occupation.value,
             onValueChange = { occupation.value = it },
             label = { Text("Área de Atuação") },
             modifier = Modifier.fillMaxWidth()

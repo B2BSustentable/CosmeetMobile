@@ -39,9 +39,9 @@ class CadastroViewModel: ViewModel() {
             occupation = occupation,
             user = User(
                 id = null,
-                name = nomePessoal,
-                email = emailPessoal,
-                password = senhaPessoal
+                name = "alex",
+                email = "emailteste@gmail.com",
+                password = "123"
             ),
             plans = Plans(
                 id = 2,
@@ -57,11 +57,15 @@ class CadastroViewModel: ViewModel() {
     fun create(novoBusiness: BusinessRequest) {
         viewModelScope.launch {
             try {
+                Log.d("aaaa", novoBusiness.toString())
+                Log.d("api", "Vai fazer o post!")
                 val post = apiBackend.createBusiness(novoBusiness)
                 if (post.isSuccessful) {
+                    Log.d("api", "Deu bom no post!")
                     _isBusinessCreated.postValue(true)
                     _erroApi.postValue("")
                 } else {
+                    Log.e("api", "Deu ruim no post! ${post.errorBody()?.string()}")
                     _isBusinessCreated.postValue(false)
                     _erroApi.postValue(post.errorBody()?.string())
                 }
