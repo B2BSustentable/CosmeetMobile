@@ -1,5 +1,6 @@
 package com.example.cosmeet.screen.application.perfil
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -19,9 +20,15 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -32,12 +39,26 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import coil.compose.rememberAsyncImagePainter
 import com.example.cosmeet.R
+import com.example.cosmeet.domain.UserPreferences
+import com.example.cosmeet.domain.dto.BusinessResponse
 import com.example.cosmeet.screen.application.home.HomeScreen
 import com.example.cosmeet.ui.theme.CosmeetTheme
+import com.google.gson.Gson
 
 @Composable
 fun PerfilScreen(navController : NavHostController) {
+    val context = LocalContext.current
+    var businessResponse by remember { mutableStateOf<BusinessResponse?>(null) }
+
+    LaunchedEffect(Unit) {
+        UserPreferences.getUser(context).collect { savedBusinessResponse ->
+            businessResponse = savedBusinessResponse
+            Log.d("business", businessResponse.toString())
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -54,7 +75,7 @@ fun PerfilScreen(navController : NavHostController) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Image(
-                    painter = painterResource(id = R.mipmap.iconteste),
+                    painter = rememberAsyncImagePainter(businessResponse?.photo.toString()),
                     contentDescription = "logo da empresa",
                     modifier = Modifier.size(50.dp)
                 )
@@ -68,15 +89,13 @@ fun PerfilScreen(navController : NavHostController) {
                                 fontSize = 15.sp
                             )
                         ) {
-                            append("Olá, Nivea")
+                            append("Olá, ${businessResponse?.name.toString()}")
                         }
                     }
                 )
             }
-            Image(
-                painter = painterResource(id = R.mipmap.fav),
-                contentDescription = "favoritos",
-                modifier = Modifier.size(30.dp)
+            Text(
+                text = ""
             )
         }
 
@@ -116,7 +135,7 @@ fun PerfilScreen(navController : NavHostController) {
             Column(modifier = Modifier.fillMaxWidth()) {
                 Row {
                     Image(
-                        painter = painterResource(id = R.mipmap.iconteste),
+                        painter = rememberAsyncImagePainter(businessResponse?.photo.toString()),
                         contentDescription = "logo da empresa",
                         modifier = Modifier.size(60.dp)
                     )
@@ -124,24 +143,22 @@ fun PerfilScreen(navController : NavHostController) {
                     Spacer(modifier = Modifier.width(15.dp))
 
                     Column {
-                        Text(text = "NIVEA LTDA")
-                        Text(text = "Distribuidor")
-                        Text(text = "Guarulhos, São Paulo")
+                        Text(text = "${businessResponse?.name}")
+                        Text(text = "${businessResponse?.occupation}")
+                        Text(text = "")
                         }
                 }
 
                 Spacer(modifier = Modifier.height(20.dp))
                 Column {
                     Text(text =
-                            "Há dois anos, a NIVEA continuou sua longa jornada de cuidado e beleza, trazendo inovação e qualidade incomparáveis para o mundo da cosmética. Hoje, celebramos com orgulho nosso aniversário de dois anos como uma marca que conquistou a confiança de milhões de pessoas em todo o mundo.\n" +
-                            "Nossa Missão de Cuidado e Beleza\n" +
-                            "Desde o início, a NIVEA se comprometeu a promover a beleza autêntica e o bem-estar de nossos clientes. Estamos empenhados em cuidar de sua pele e fornecer produtos de alta qualidade que a mantenham saudável e radiante [...]", fontSize = 12.sp)
+                            "${businessResponse?.about}", fontSize = 12.sp)
                 }
                 Spacer(modifier = Modifier.height(25.dp))
-                Button(onClick = {navController.navigate("editProfile") },  colors = ButtonDefaults.buttonColors(Color(0xFF432D67))
-                ) {
-                    Text(text = "Editar Perfil", color = Color.White)
-                }
+//                Button(onClick = {navController.navigate("editProfile") },  colors = ButtonDefaults.buttonColors(Color(0xFF432D67))
+//                ) {
+//                    Text(text = "Editar Perfil", color = Color.White)
+//                }
                 Spacer(modifier = Modifier.height(50.dp))
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                     Text(text = "BÁSICO", fontWeight = FontWeight.Bold)

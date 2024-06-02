@@ -1,5 +1,6 @@
 package com.example.cosmeet.screen.application.perfil
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Arrangement
@@ -32,9 +33,15 @@ import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -49,10 +56,26 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.cosmeet.R
+import com.example.cosmeet.domain.UserPreferences
+import com.example.cosmeet.domain.dto.BusinessResponse
 import com.example.cosmeet.ui.theme.CosmeetTheme
 
 @Composable
 fun EditProfile(navController: NavHostController) {
+    val context = LocalContext.current
+    var businessResponse by remember { mutableStateOf<BusinessResponse?>(null) }
+
+    val occupation = remember { mutableStateOf("") }
+    var nome = remember { mutableStateOf("") }
+
+    LaunchedEffect(Unit) {
+        UserPreferences.getUser(context).collect { savedBusinessResponse ->
+            businessResponse = savedBusinessResponse
+            nome = mutableStateOf(businessResponse?.name.toString())
+            Log.d("name", nome.toString())
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -109,8 +132,8 @@ fun EditProfile(navController: NavHostController) {
 
                             Column {
                                 OutlinedTextField(
-                                    value = "NIVEA LTDA",
-                                    onValueChange = {},
+                                    value = nome.value,
+                                    onValueChange = { nome.value = it },
                                     label = { Text("Nome Empresa") },
                                     modifier = Modifier.fillMaxWidth()
                                 )
@@ -118,8 +141,8 @@ fun EditProfile(navController: NavHostController) {
                                 Spacer(modifier = Modifier.height(10.dp))
 
                                 OutlinedTextField(
-                                    value = "Distribuidor",
-                                    onValueChange = {},
+                                    value = occupation.value,
+                                    onValueChange = { occupation.value = it },
                                     label = { Text("Área de atuação") },
                                     modifier = Modifier.fillMaxWidth()
                                 )

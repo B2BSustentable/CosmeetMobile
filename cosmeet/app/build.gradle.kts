@@ -100,4 +100,7 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
 
     implementation ("com.google.code.gson:gson:2.8.9")
+    implementation ("com.google.accompanist:accompanist-flowlayout:0.26.0-alpha")
+    implementation("androidx.datastore:datastore-preferences:1.1.0")
+    implementation("androidx.datastore:datastore-core:1.1.0")
 }

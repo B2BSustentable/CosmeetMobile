@@ -11,6 +11,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -30,6 +31,7 @@ import kotlinx.serialization.json.Json
 
 @Composable
 fun LoginScreen(navController: NavHostController, loginViewModel: LoginViewModel = viewModel()) {
+    val context = LocalContext.current
     val isSecondStepVisible = remember { mutableStateOf(false) }
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
@@ -62,7 +64,7 @@ fun LoginScreen(navController: NavHostController, loginViewModel: LoginViewModel
                 password = password,
                 isLoading = isLoading,
                 onLoginClick = {
-                    loginViewModel.login(email.value, password.value)
+                    loginViewModel.login(context, email.value, password.value)
                 }
             )
         } else {

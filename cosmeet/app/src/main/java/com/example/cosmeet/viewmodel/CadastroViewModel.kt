@@ -39,9 +39,9 @@ class CadastroViewModel: ViewModel() {
             occupation = occupation,
             user = User(
                 id = null,
-                name = "alex",
-                email = "emailteste@gmail.com",
-                password = "123"
+                name = nomePessoal,
+                email = emailPessoal,
+                password = senhaPessoal
             ),
             plans = Plans(
                 id = 2,

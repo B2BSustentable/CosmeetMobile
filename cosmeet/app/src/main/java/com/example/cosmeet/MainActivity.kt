@@ -1,5 +1,6 @@
 package com.example.cosmeet
 
+import SharedViewModel
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -9,6 +10,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.cosmeet.screen.application.home.CompanyScreen
 import com.example.cosmeet.screen.application.home.HomeScreen
 import com.example.cosmeet.screen.application.perfil.EditProfile
 import com.example.cosmeet.screen.application.perfil.PerfilScreen
@@ -18,6 +20,7 @@ import com.example.cosmeet.screen.login.LoginScreen
 import com.example.cosmeet.viewmodel.LoginViewModel
 import com.example.cosmeet.screen.start.StartScreen
 import com.example.cosmeet.ui.theme.CosmeetTheme
+import com.example.cosmeet.viewmodel.CadastroViewModel
 import com.example.cosmeet.viewmodel.HomeViewModel
 
 class MainActivity : ComponentActivity() {
@@ -47,15 +50,26 @@ class MainActivity : ComponentActivity() {
                             navController = navController
                         )
                     }
-                    composable("secondStepRegister") {
+                    composable(
+                        "secondStepRegister/{nomePessoal}/{emailPessoal}/{senhaPessoal}"
+                    ) {backStackEntry ->
+                        val nomePessoal = backStackEntry.arguments?.getString("nomePessoal")
+                        val emailPessoal = backStackEntry.arguments?.getString("emailPessoal")
+                        val senhaPessoal = backStackEntry.arguments?.getString("senhaPessoal")
+
                         SecondStepRegister(
-                            navController = navController
+                            navController = navController,
+                            sharedViewModel = SharedViewModel(),
+                            cadastroViewModel = CadastroViewModel(),
+                            nomePessoal = nomePessoal,
+                            emailPessoal = emailPessoal,
+                            senhaPessoal = senhaPessoal
                         )
                     }
                     composable("home") {
                         HomeScreen(
                             navController = navController,
-                            homeViewModel = HomeViewModel()
+                            homeViewModel = HomeViewModel(),
                         )
                     }
                     composable("profile") {
@@ -66,6 +80,14 @@ class MainActivity : ComponentActivity() {
                     composable("editProfile") {
                         EditProfile(
                             navController = navController
+                        )
+                    }
+                    composable("companyScreen/{id}") { backStackEntry ->
+                        val id = backStackEntry.arguments?.getString("id")
+
+                        CompanyScreen(
+                            navController = navController,
+                            id = id
                         )
                     }
                 }

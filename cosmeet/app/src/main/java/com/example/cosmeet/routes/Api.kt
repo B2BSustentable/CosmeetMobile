@@ -25,6 +25,11 @@ interface Api {
         @Path("id") userId: Long?
     ): Response<BusinessResponse>
 
+    @GET("business/user/{id}")
+    suspend fun getBusinessByUserId(
+        @Path("id") userId: Long?
+    ): Response<BusinessResponse>
+
     @GET("business")
     suspend fun getAllBusiness(): Response<List<BusinessResponse>>
 

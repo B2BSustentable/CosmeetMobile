@@ -14,6 +14,7 @@ data class BusinessResponse(
     var about: String? = null,
     var photo: String? = null,
     var address: Address? = null,
+    var user : User? = null,
 )
 
 data class BusinessRequest(

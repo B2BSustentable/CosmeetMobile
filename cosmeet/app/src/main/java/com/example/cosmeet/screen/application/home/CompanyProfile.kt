@@ -1,6 +1,8 @@
 package com.example.cosmeet.screen.application.home
 
+import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,19 +23,54 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import coil.compose.rememberAsyncImagePainter
 import com.example.cosmeet.R
+import com.example.cosmeet.domain.UserPreferences
+import com.example.cosmeet.domain.dto.BusinessResponse
 import com.example.cosmeet.ui.theme.CosmeetTheme
+import com.example.cosmeet.viewmodel.CompanyProfileViewModel
 
 @Composable
-fun CompanyScreen() {
+fun CompanyScreen(
+    navController: NavHostController,
+    id: String?,
+    companyProfileViewModel: CompanyProfileViewModel = viewModel(),
+) {
+    val context = LocalContext.current
+    var businessResponse by remember { mutableStateOf<BusinessResponse?>(null) }
+    val oneBusiness by companyProfileViewModel.business.observeAsState()
+
+    LaunchedEffect(Unit) {
+        UserPreferences.getUser(context).collect { savedBusinessResponse ->
+            Log.d("iddobusines", id.toString())
+            companyProfileViewModel.fetchBusinessById(id?.toLong())
+            businessResponse = savedBusinessResponse
+        }
+    }
+
+    LaunchedEffect(oneBusiness) {
+        oneBusiness?.let {
+            Log.d("response**23", it.toString())
+        } ?: Log.d("response**23", "allBusiness is null")
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -50,24 +87,19 @@ fun CompanyScreen() {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Image(
-                    painter = painterResource(id = R.mipmap.iconteste),
+                    painter = rememberAsyncImagePainter(businessResponse?.photo.toString()),
                     contentDescription = "logo da empresa",
                     modifier = Modifier.size(50.dp)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "Olá, Nivea",
+                    text = "Olá, ${businessResponse?.name}",
                     style = MaterialTheme.typography.bodyMedium.copy(
                         fontSize = 15.sp,
                         color = Color(0xFF252525)
                     )
                 )
             }
-            Image(
-                painter = painterResource(id = R.mipmap.fav),
-                contentDescription = "favoritos",
-                modifier = Modifier.size(30.dp)
-            )
         }
 
         Spacer(modifier = Modifier.height(30.dp))
@@ -78,25 +110,6 @@ fun CompanyScreen() {
                 .padding(10.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Row(
-                modifier = Modifier.width(250.dp),
-                horizontalArrangement = Arrangement.SpaceAround
-            ) {
-                Text(
-                    text = "Home",
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        fontSize = 16.sp
-                    ),
-                    fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
-                    textDecoration = androidx.compose.ui.text.style.TextDecoration.Underline
-                )
-                Spacer(modifier = Modifier.weight(1f))
-                Text(
-                    text = "Perfil",
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontSize = 16.sp
-                )
-            }
             Spacer(modifier = Modifier.height(10.dp))
 
             Divider(modifier = Modifier.fillMaxWidth())
@@ -111,7 +124,6 @@ fun CompanyScreen() {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .fillMaxWidth()
                         .padding(start = 15.dp, top = 20.dp, end = 15.dp, bottom = 0.dp),
                     verticalArrangement = Arrangement.Top,
                     horizontalAlignment = Alignment.CenterHorizontally
@@ -124,21 +136,23 @@ fun CompanyScreen() {
                                 .size(80.dp)
                                 .padding(bottom = 16.dp),
                             contentDescription = "oBoticário Logo",
-                            painter = painterResource(id = R.mipmap.iconteste),
+                            painter = rememberAsyncImagePainter(oneBusiness?.photo.toString()),
                         )
                         Column(modifier = Modifier.width(140.dp)) {
                             Text(
-                                text = "oBoticario",
+                                text = oneBusiness?.name.toString(),
                                 style = MaterialTheme.typography.bodyMedium,
                                 fontWeight = FontWeight.Bold
                             )
 
                             Text(
-                                text = "Distribuidor", style = MaterialTheme.typography.bodyMedium
+                                text = oneBusiness?.occupation.toString(),
+                                style = MaterialTheme.typography.bodyMedium
                             )
 
                             Text(
-                                text = "Guarulhos, São Paulo",
+                                text = oneBusiness?.address?.neighborhood.toString()
+                                        + ", " + oneBusiness?.address?.city.toString(),
                                 style = MaterialTheme.typography.bodyMedium
                             )
                         }
@@ -147,23 +161,21 @@ fun CompanyScreen() {
                         Column {
                             Icon(
                                 imageVector = Icons.Filled.Close,
-                                contentDescription = "back",
+                                contentDescription = "close icon",
+                                modifier = Modifier.clickable(
+                                    onClick = {
+                                        navController.navigate("home")
+                                    }
+                                )
                             )
                             Spacer(modifier = Modifier.height(30.dp))
-                            Image(
-                                modifier = Modifier
-                                    .size(22.dp),
-                                contentDescription = "oBoticário Logo",
-                                painter = painterResource(id = R.mipmap.fav),
-                            )
+
                         }
                     }
 
                     Divider(modifier = Modifier.padding(vertical = 16.dp))
 
                     Column {
-
-
                         Text(
                             text = "Contatos",
                             style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
@@ -174,7 +186,8 @@ fun CompanyScreen() {
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text(text = "telefone: (11) 97298-1912",
+                            Text(
+                                text = "telefone: ${oneBusiness?.phone.toString()}",
                                 style = MaterialTheme.typography.bodyMedium
                             )
                         }
@@ -184,7 +197,8 @@ fun CompanyScreen() {
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text(text = "e-mail: diegovieirawork@gmail.com",
+                            Text(
+                                text = "e-mail: ${oneBusiness?.email.toString()}",
                                 style = MaterialTheme.typography.bodyMedium
                             )
                         }
@@ -197,7 +211,7 @@ fun CompanyScreen() {
                         )
 
                         Text(
-                            text = "Há dois anos, a NIVEA continuou sua longa jornada de cuidado e beleza, trazendo inovação e qualidade incomparáveis para o mundo da cosmética. Hoje, celebramos com orgulho nosso aniversário de dois anos como uma marca que conquistou a confiança de milhões de pessoas em todo o mundo",
+                            text = oneBusiness?.about.toString(),
                             style = MaterialTheme.typography.bodyMedium,
                             modifier = Modifier.padding(top = 8.dp)
                         )
@@ -205,13 +219,5 @@ fun CompanyScreen() {
                 }
             }
         }
-    }
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun PreviewCompany() {
-    CosmeetTheme {
-        CompanyScreen()
     }
 }

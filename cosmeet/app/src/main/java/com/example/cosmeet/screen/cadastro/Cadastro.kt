@@ -139,7 +139,8 @@ fun CadastroScreen(
         Button(
             onClick = {
                 if (nomeCompleto.isNotEmpty() && emailPessoal.isNotEmpty() && senhaPessoal.isNotEmpty()) {
-                    navController.navigate("secondStepRegister")
+                    navController.navigate(
+                        "secondStepRegister/$nomeCompleto/$emailPessoal/$senhaPessoal")
                 }
             },
             modifier = Modifier.fillMaxWidth(),
@@ -179,7 +180,11 @@ fun CadastroScreen(
 fun SecondStepRegister(
     navController: NavHostController,
     sharedViewModel: SharedViewModel = viewModel(),
-    cadastroViewModel: CadastroViewModel = viewModel()
+    cadastroViewModel: CadastroViewModel = viewModel(),
+    nomePessoal: String?,
+    emailPessoal: String?,
+    senhaPessoal: String?
+
 ) {
     val errorMessage by remember { mutableStateOf("") }
 
@@ -192,7 +197,7 @@ fun SecondStepRegister(
     val isBusinessCreated by cadastroViewModel.isBusinessCreated.observeAsState()
     val erroApi by cadastroViewModel.erroApi.observeAsState()
 
-    Log.d("***&", sharedViewModel.nomeCompleto.value)
+    Log.d("***&", nomePessoal.toString())
 
     if (isBusinessCreated == true) {
         navController.navigate("login")
@@ -283,9 +288,9 @@ fun SecondStepRegister(
             onClick = {
                 if (nomeEmpresa.value.isNotEmpty() && telefone.value.isNotEmpty() && emailEmpresa.value.isNotEmpty() && CNPJ.value.isNotEmpty()) {
                     val business = cadastroViewModel.makeBusinessRequest(
-                        nomePessoal = sharedViewModel.nomeCompleto.value,
-                        emailPessoal = sharedViewModel.emailPessoal.value,
-                        senhaPessoal = sharedViewModel.senhaPessoal.value,
+                        nomePessoal = nomePessoal.toString(),
+                        emailPessoal = emailPessoal.toString(),
+                        senhaPessoal = senhaPessoal.toString(),
                         nomeEmpresa = nomeEmpresa.value,
                         emailEmpresa = emailEmpresa.value,
                         phoneEmpresa = telefone.value,
